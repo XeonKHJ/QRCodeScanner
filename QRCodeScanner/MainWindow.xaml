@@ -10,19 +10,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button x:Name="PasteButton" Grid.Row="0" Grid.Column="0" Click="PasteButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Paste here to scan</Button>
-        <StackPanel Grid.Row="0" Grid.Column="1" >
-            <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
-            <Button x:Name="GenerateButton" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Generate QRCode</Button>
-        </StackPanel>
-        <Button x:Name="OpenImageButton" Grid.Row="1" Grid.Column="0"></Button>
-        <Image x:Name="qrCodeImage" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
+        <TextBox x:Name="ContentTextBox" Grid.Row="0" Grid.ColumnSpan="2" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
+        <Button x:Name="GenerateButton" Grid.Row="1" Grid.ColumnSpan="2" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Generate QRCode</Button>
+
+        <Button x:Name="PasteButton" Grid.Row="2" Grid.Column="0" Click="PasteButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Paste here to scan</Button>
+        <Button x:Name="OpenImageButton" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Open Image</Button>
+        <Image x:Name="qrCodeImage" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"></Image>
     </Grid>
 </Window>
