@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "QRCodeScanner (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "QRCodeScanner (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
