@@ -17,9 +17,12 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button x:Name="pasteButton" Grid.Row="0" Grid.Column="0" Click="pasteButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Paste here to scan</Button>
-        <Button x:Name="generateButton" Grid.Row="0" Grid.Column="1" Click="generateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Generate QRCode</Button>
-        <Button x:Name="useCameraButton" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="useCameraButton_Click">Use camera</Button>
-        <Image x:Name="qrCodeImage" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
+        <Button x:Name="PasteButton" Grid.Row="0" Grid.Column="0" Click="PasteButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Paste here to scan</Button>
+        <StackPanel Grid.Row="0" Grid.Column="1" >
+            <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
+            <Button x:Name="GenerateButton" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Generate QRCode</Button>
+        </StackPanel>
+        <Button x:Name="OpenImageButton" Grid.Row="1" Grid.Column="0"></Button>
+        <Image x:Name="qrCodeImage" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
     </Grid>
 </Window>

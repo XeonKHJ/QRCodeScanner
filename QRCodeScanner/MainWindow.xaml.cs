@@ -32,16 +32,6 @@ namespace QRCodeScanner
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            pasteButton.Content = "Clicked";
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            var qrCodeBitmap = qrCode.GetGraphic(20);
-
-            DisplayBitmap(qrCodeBitmap);
-        }
         public async void DisplayBitmap(Bitmap bitmap)
         {
             using (var stream = new Windows.Storage.Streams.InMemoryRandomAccessStream())
@@ -81,7 +71,7 @@ namespace QRCodeScanner
             System.Diagnostics.Debug.WriteLine("fuck");
         }
 
-        private async void pasteButton_Click(object sender, RoutedEventArgs e)
+        private async void PasteButton_Click(object sender, RoutedEventArgs e)
         {
             var dataPackageView = Windows.ApplicationModel.DataTransfer.Clipboard.GetContent();
             if (dataPackageView.Contains(Windows.ApplicationModel.DataTransfer.StandardDataFormats.Bitmap))
@@ -102,15 +92,6 @@ namespace QRCodeScanner
                         Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
                         bitmap.UnlockBits(bitmapData);
 
-                        //imageStream.Seek(0);
-                        //Windows.Storage.Streams.Buffer buffer = new((uint)imageStream.Size);
-                        //await imageStream.ReadAsync(buffer, (uint)imageStream.Size, Windows.Storage.Streams.InputStreamOptions.None);
-                        //byte[] imageBytes = new byte[buffer.Length];
-                        //Windows.Storage.Streams.DataReader.FromBuffer(buffer).ReadBytes(imageBytes);
-
-                        byte[] abcd = new byte[bitmap.Width * bitmap.Height * 4 + 10];
-                        //GetRGB(bitmap, 0, 0, bitmap.Width, bitmap.Height, abcd, 0, bitmap.Width);
-
                         /// Scan
                         // create a barcode reader instance
                         IBarcodeReader reader = new BarcodeReader();
@@ -130,47 +111,9 @@ namespace QRCodeScanner
             }
         }
 
-        //public static void GetRGB(this Bitmap image, int startX, int startY, int w, int h, int[] rgbArray, int offset, int scansize)
-        //{
-        //    const int PixelWidth = 4;
-        //    const PixelFormat PixelFormat = PixelFormat.Format32bppRgb;
-
-        //    // En garde!
-        //    if (image == null) throw new ArgumentNullException("image");
-        //    if (rgbArray == null) throw new ArgumentNullException("rgbArray");
-        //    if (startX < 0 || startX + w > image.Width) throw new ArgumentOutOfRangeException("startX");
-        //    if (startY < 0 || startY + h > image.Height) throw new ArgumentOutOfRangeException("startY");
-        //    if (w < 0 || w > scansize || w > image.Width) throw new ArgumentOutOfRangeException("w");
-        //    if (h < 0 || (rgbArray.Length < offset + h * scansize) || h > image.Height) throw new ArgumentOutOfRangeException("h");
-
-        //    BitmapData data = image.LockBits(new Rectangle(startX, startY, w, h), System.Drawing.Imaging.ImageLockMode.ReadOnly, PixelFormat);
-        //    try
-        //    {
-        //        byte[] pixelData = new Byte[data.Stride];
-        //        for (int scanline = 0; scanline < data.Height; scanline++)
-        //        {
-        //            Marshal.Copy(data.Scan0 + (scanline * data.Stride), pixelData, 0, data.Stride);
-        //            for (int pixeloffset = 0; pixeloffset < data.Width; pixeloffset++)
-        //            {
-        //                // PixelFormat.Format32bppRgb means the data is stored
-        //                // in memory as BGR. We want RGB, so we must do some 
-        //                // bit-shuffling.
-        //                rgbArray[offset + (scanline * scansize) + pixeloffset] =
-        //                    (pixelData[pixeloffset * PixelWidth + 2] << 16) +   // R 
-        //                    (pixelData[pixeloffset * PixelWidth + 1] << 8) +    // G
-        //                    pixelData[pixeloffset * PixelWidth];                // B
-        //            }
-        //        }
-        //    }
-        //    finally
-        //    {
-        //        image.UnlockBits(data);
-        //    }
-        //}
-
-        private void generateButton_Click(object sender, RoutedEventArgs e)
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-            pasteButton.Content = "Clicked";
+            PasteButton.Content = "Clicked";
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
