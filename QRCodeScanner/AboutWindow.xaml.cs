@@ -27,5 +27,10 @@ namespace QRCodeScanner
         {
             this.InitializeComponent();
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

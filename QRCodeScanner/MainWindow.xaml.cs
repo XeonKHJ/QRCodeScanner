@@ -30,6 +30,7 @@ namespace QRCodeScanner
         public MainWindow()
         {
             this.InitializeComponent();
+
             _qRCodeWindow = new QRCodeWindow();
             _aboutWindow = new AboutWindow();       
             _errorDialog = new ErrorDialog();
@@ -131,7 +132,8 @@ namespace QRCodeScanner
         private async void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            IntPtr hwnd = GetActiveWindow();
+            var hwnd = PInvoke.User32.GetActiveWindow();
+
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
@@ -157,8 +159,5 @@ namespace QRCodeScanner
             _errorDialog.SetErrorMessage(error);
             await _errorDialog.ShowAsync();
         }
-
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto, PreserveSig = true, SetLastError = false)]
-        public static extern IntPtr GetActiveWindow();
     }
 }
