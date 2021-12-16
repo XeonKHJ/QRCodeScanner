@@ -18,6 +18,8 @@ using ZXing;
 using System.Runtime.InteropServices;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -100,6 +102,10 @@ namespace QRCodeScanner
             int bytePerPixel = 4;
             switch (bitmap.PixelFormat)
             {
+                case PixelFormat.Format8bppIndexed:
+                    bytePerPixel = 1;
+                    luminanceFormat = RGBLuminanceSource.BitmapFormat.Gray8;
+                    break;
                 case PixelFormat.Format24bppRgb:
                     bytePerPixel = 3;
                     luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB24;
@@ -195,12 +201,45 @@ namespace QRCodeScanner
                 }
             }
         }
-
+        
+        
         private async void DisplayError(string error)
         {
             _errorDialog.XamlRoot = this.Content.XamlRoot;
             _errorDialog.SetErrorMessage(error);
             await _errorDialog.ShowAsync();
+        }
+
+        private async void ContentTextBox_Drop(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                var items = await e.DataView.GetStorageItemsAsync();
+                if (items.Count > 0)
+                {
+                    var storageFile = items[0] as StorageFile;
+                    using (IRandomAccessStream stream = await storageFile.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                    {
+                        try
+                        {
+                            ScanQRCodeFromStream(stream.AsStream());
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            DisplayError("File error.");
+                        }
+                        catch (Exception ex)
+                        {
+                            DisplayError(ex.Message);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Grid_DragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Copy;
         }
     }
 }

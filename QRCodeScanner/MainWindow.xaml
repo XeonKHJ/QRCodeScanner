@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
 
-    <Grid>
+
+    <Grid AllowDrop="True" CanDrag="True" Drop="ContentTextBox_Drop" DragOver="Grid_DragOver">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -19,8 +19,8 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5">Paste QR Code image here to scan.</TextBlock>
-        <TextBox x:Name="ContentTextBox" Grid.Row="0" Grid.ColumnSpan="3" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
+        <TextBlock Grid.Row="0" Visibility="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5">Paste QR Code image here to scan.</TextBlock>
+        <TextBox x:Name="ContentTextBox"  Grid.Row="0" Grid.ColumnSpan="3" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
         <Button x:Name="GenerateButton" Grid.Row="1" Grid.ColumnSpan="3" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Generate QRCode</Button>
 
         <Button x:Name="PasteButton" Grid.Row="2" Grid.Column="0" Click="PasteButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
