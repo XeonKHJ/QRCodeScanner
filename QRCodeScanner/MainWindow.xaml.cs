@@ -16,6 +16,8 @@ using System.IO;
 using System.Threading.Tasks;
 using ZXing;
 using System.Runtime.InteropServices;
+using Windows.Storage.Streams;
+using Windows.Graphics.Imaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,7 +34,7 @@ namespace QRCodeScanner
             this.InitializeComponent();
 
             _qRCodeWindow = new QRCodeWindow();
-            _aboutWindow = new AboutWindow();       
+            _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
         }
 
@@ -49,10 +51,10 @@ namespace QRCodeScanner
                 {
                     bitmap.Save(systemStream, ImageFormat.Bmp);
                     stream.Seek(0);
-                    
+
                 }).ConfigureAwait(true);
                 await bitmapImage.SetSourceAsync(stream);
-                if (bitmapImage!=null)
+                if (bitmapImage != null)
                 {
                     _qRCodeWindow.SetQRCodeSource(bitmapImage);
                     _qRCodeWindow.XamlRoot = this.Content.XamlRoot;
@@ -77,35 +79,66 @@ namespace QRCodeScanner
                 {
                     using (var imageStream = await imageReceived.OpenReadAsync())
                     {
-                        Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(imageStream.AsStream());
-                        var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
-
-                        var length = bitmapData.Width * bitmapData.Height * 4;
-                        byte[] bytes = new byte[length];
-
-                        // Copy bitmap to byte[]
-                        Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
-                        bitmap.UnlockBits(bitmapData);
-
-                        /// Scan
-                        // create a barcode reader instance
-                        IBarcodeReader reader = new BarcodeReader();
-                        // detect and decode the barcode inside the bitmap
-                        var result = reader.Decode(bytes, bitmap.Width, bitmap.Height, RGBLuminanceSource.BitmapFormat.RGB32);
-                        // do something with the result
-                        if (result != null)
+                        try
                         {
-                            ContentTextBox.Text = result.Text;
+                            ScanQRCodeFromStream(imageStream.AsStream());
                         }
-                        else
+                        catch(Exception ex)
                         {
-                            DisplayError("No text was decoded from the image.");
+                            DisplayError(ex.Message);
                         }
                     }
                 }
             }
         }
 
+        private void ScanQRCodeFromStream(Stream stream)
+        {
+            Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(stream);
+            var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            var luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB32;
+            int bytePerPixel = 4;
+            switch (bitmap.PixelFormat)
+            {
+                case PixelFormat.Format24bppRgb:
+                    bytePerPixel = 3;
+                    luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB24;
+                    break;
+                case PixelFormat.Format32bppArgb:
+                    bytePerPixel = 4;
+                    luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB32;
+                    break;
+                case PixelFormat.Format32bppRgb:
+                    luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB32;
+                    bytePerPixel = 4;
+                    break;
+                default:
+                    throw new Exception(String.Format("Image format {0} is not supported.", bitmap.PixelFormat));
+                    break;
+            }
+
+            var length = bitmapData.Width * bitmapData.Height * bytePerPixel;
+            byte[] bytes = new byte[length];
+
+            // Copy bitmap to byte[]
+            Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
+            bitmap.UnlockBits(bitmapData);
+
+            /// Scan
+            // create a barcode reader instance
+            IBarcodeReader reader = new BarcodeReader();
+            // detect and decode the barcode inside the bitmap
+            var result = reader.Decode(bytes, bitmap.Width, bitmap.Height, luminanceFormat);
+            // do something with the result
+            if (result != null)
+            {
+                ContentTextBox.Text = result.Text;
+            }
+            else
+            {
+                DisplayError("No text was decoded from the image.");
+            }
+        }
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             //PasteButton.Content = "Clicked";
@@ -124,7 +157,7 @@ namespace QRCodeScanner
 
         private async void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-          
+
             _aboutWindow.XamlRoot = this.Content.XamlRoot;
             await _aboutWindow.ShowAsync();
         }
@@ -142,17 +175,27 @@ namespace QRCodeScanner
             picker.FileTypeFilter.Add(".png");
 
             var file = await picker.PickSingleFileAsync();
-            
+
             if (file != null)
             {
-                System.Diagnostics.Debug.WriteLine("fuck");
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("shit");
+                using (IRandomAccessStream stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                {
+                    try
+                    {
+                        ScanQRCodeFromStream(stream.AsStream());
+                    }
+                    catch(ArgumentException ex)
+                    {
+                        DisplayError("File error.");
+                    }
+                    catch(Exception ex)
+                    {
+                        DisplayError(ex.Message);
+                    }
+                }
             }
         }
-        
+
         private async void DisplayError(string error)
         {
             _errorDialog.XamlRoot = this.Content.XamlRoot;

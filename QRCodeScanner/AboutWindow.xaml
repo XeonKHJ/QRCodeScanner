@@ -16,6 +16,6 @@
         <TextBlock>
             个人作品。
         </TextBlock>
-        <Button x:Name="CloseButton" Click="CloseButton_Click" Grid.Row="0" HorizontalAlignment="Center">Close</Button>
+        <Button x:Name="CloseButton" Click="CloseButton_Click" Grid.Row="1" HorizontalAlignment="Center">Close</Button>
     </Grid>
 </ContentDialog>
