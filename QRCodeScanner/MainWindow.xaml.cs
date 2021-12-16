@@ -30,8 +30,12 @@ namespace QRCodeScanner
         public MainWindow()
         {
             this.InitializeComponent();
+            _qRCodeWindow = new QRCodeWindow();
+            _aboutWindow = new AboutWindow();            
         }
 
+        private QRCodeWindow _qRCodeWindow;
+        private AboutWindow _aboutWindow;
         public async void DisplayBitmap(Bitmap bitmap)
         {
             using (var stream = new Windows.Storage.Streams.InMemoryRandomAccessStream())
@@ -47,31 +51,19 @@ namespace QRCodeScanner
                 await bitmapImage.SetSourceAsync(stream);
                 if (bitmapImage!=null)
                 {
-                    qrCodeImage.Source = bitmapImage;
+                    _qRCodeWindow.SetQRCodeSource(bitmapImage);
+                    _qRCodeWindow.XamlRoot = this.Content.XamlRoot;
+                    await _qRCodeWindow.ShowAsync();
                 }
             }
         }
-        private void useCameraButton_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void PasteButton_Click(object sender, RoutedEventArgs e)
+        {
+            ScanQRCodeFromPaste();
         }
 
-        private void TextBox_Paste(object sender, TextControlPasteEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Fuckoff");
-        }
-
-        private void TextBox_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
-        {
-            System.Diagnostics.Debug.WriteLine("shit");
-        }
-
-        private void TextBox_FocusEngaged(Control sender, FocusEngagedEventArgs args)
-        {
-            System.Diagnostics.Debug.WriteLine("fuck");
-        }
-
-        private async void PasteButton_Click(object sender, RoutedEventArgs e)
+        private async void ScanQRCodeFromPaste()
         {
             var dataPackageView = Windows.ApplicationModel.DataTransfer.Clipboard.GetContent();
             if (dataPackageView.Contains(Windows.ApplicationModel.DataTransfer.StandardDataFormats.Bitmap))
@@ -100,26 +92,62 @@ namespace QRCodeScanner
                         // do something with the result
                         if (result != null)
                         {
-                            System.Diagnostics.Debug.WriteLine("fuck");
+                            ContentTextBox.Text = result.Text;
                         }
                     }
                 }
-            }
-            else
-            {
-                //tblStatus.Text = "Status : Bitmap format is not available in clipboard";
             }
         }
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-            PasteButton.Content = "Clicked";
+            //PasteButton.Content = "Clicked";
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(ContentTextBox.Text, QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
             var qrCodeBitmap = qrCode.GetGraphic(20);
 
             DisplayBitmap(qrCodeBitmap);
         }
+
+        private void ContentTextBox_Paste(object sender, TextControlPasteEventArgs e)
+        {
+            ScanQRCodeFromPaste();
+        }
+
+        private async void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+          
+            _aboutWindow.XamlRoot = this.Content.XamlRoot;
+            await _aboutWindow.ShowAsync();
+        }
+
+        private async void OpenImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            IntPtr hwnd = GetActiveWindow();
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            var file = await picker.PickSingleFileAsync();
+            
+            if (file != null)
+            {
+                System.Diagnostics.Debug.WriteLine("fuck");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("shit");
+            }
+
+            
+        }
+
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto, PreserveSig = true, SetLastError = false)]
+        public static extern IntPtr GetActiveWindow();
     }
 }
