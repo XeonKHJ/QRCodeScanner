@@ -31,11 +31,13 @@ namespace QRCodeScanner
         {
             this.InitializeComponent();
             _qRCodeWindow = new QRCodeWindow();
-            _aboutWindow = new AboutWindow();            
+            _aboutWindow = new AboutWindow();       
+            _errorDialog = new ErrorDialog();
         }
 
         private QRCodeWindow _qRCodeWindow;
         private AboutWindow _aboutWindow;
+        private ErrorDialog _errorDialog;
         public async void DisplayBitmap(Bitmap bitmap)
         {
             using (var stream = new Windows.Storage.Streams.InMemoryRandomAccessStream())
@@ -94,6 +96,10 @@ namespace QRCodeScanner
                         {
                             ContentTextBox.Text = result.Text;
                         }
+                        else
+                        {
+                            DisplayError("No text was decoded from the image.");
+                        }
                     }
                 }
             }
@@ -143,8 +149,13 @@ namespace QRCodeScanner
             {
                 System.Diagnostics.Debug.WriteLine("shit");
             }
-
-            
+        }
+        
+        private async void DisplayError(string error)
+        {
+            _errorDialog.XamlRoot = this.Content.XamlRoot;
+            _errorDialog.SetErrorMessage(error);
+            await _errorDialog.ShowAsync();
         }
 
         [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto, PreserveSig = true, SetLastError = false)]
