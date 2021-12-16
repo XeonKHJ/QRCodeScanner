@@ -120,7 +120,6 @@ namespace QRCodeScanner
                     break;
                 default:
                     throw new Exception(String.Format("Image format {0} is not supported.", bitmap.PixelFormat));
-                    break;
             }
 
             var length = bitmapData.Width * bitmapData.Height * bytePerPixel;
