@@ -8,7 +8,7 @@ WECHATQRCODELIB_API int ReturnSameInt(int a)
 	return a + 1;
 }
 
-WECHATQRCODELIB_API DetectResult DetectQRCodePos(BYTE[] pixelArray, int width, int height, PixelFormat format)
+WECHATQRCODELIB_API DetectResult DetectQRCodePos(BYTE* pixelArray, int width, int height, PixelFormat format)
 {
 	auto detector = cv::wechat_qrcode::WeChatQRCode("detect.prototxt", "detect.caffemodel", "sr.prototxt", "sr.caffemodel");
 	auto img = cv::Mat(width, height, CV_32F);

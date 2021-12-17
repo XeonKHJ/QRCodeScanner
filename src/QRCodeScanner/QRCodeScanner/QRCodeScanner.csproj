@@ -43,6 +43,9 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WechatQRCodeLib\WechatQRCodeLib\WechatQRCodeLib.vcxproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="ErrorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
