@@ -244,5 +244,8 @@ namespace QRCodeScanner
 
         [DllImport("WechatQRCodeLib.dll")]
         public static extern int ReturnSameInt(int a);
+
+        [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern DetectDLLResult DetectQRCodePos(byte[] pixelArray, int width, int height, PixelFormat format);
     }
 }
