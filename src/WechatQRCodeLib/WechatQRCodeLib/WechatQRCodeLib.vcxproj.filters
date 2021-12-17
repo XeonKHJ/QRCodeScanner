@@ -13,6 +13,36 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="wechat_qrcode">
+      <UniqueIdentifier>{e1bc1e32-9412-4459-a9d9-00f612c13def}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing">
+      <UniqueIdentifier>{d80bb0ef-e910-47a1-bb6d-cc870d5b8080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing\qrcode">
+      <UniqueIdentifier>{75d0c0c7-b6c1-4f6e-941b-939a8ed028de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing\common">
+      <UniqueIdentifier>{d8efc27a-7ce6-472a-8c3f-b27214f75f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\detector">
+      <UniqueIdentifier>{e12103d7-2e19-4de1-9be1-ad15808c5059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\scale">
+      <UniqueIdentifier>{9e5d0762-627c-477f-98e7-e7c90e426129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing\qrcode\decoder">
+      <UniqueIdentifier>{43369236-303d-48be-809a-8bf00caf3da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing\qrcode\detector">
+      <UniqueIdentifier>{31f6532a-530d-4ed9-8cf0-fc5a71b70304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing\common\binarizer">
+      <UniqueIdentifier>{bc35b8b0-5458-4efd-8c9a-6b9e53253aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wechat_qrcode\zxing\common\reedsolomon">
+      <UniqueIdentifier>{1d689815-e6c2-43ce-9a13-549b3bca65da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -24,6 +54,192 @@
     <ClInclude Include="WechatQRCodeLib.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="wechat_qrcode\binarizermgr.hpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\decodermgr.hpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\imgsource.hpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\precomp.hpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\wechat_qrcode.hpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\binarizer.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\binarybitmap.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\decodehints.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\errorhandler.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\luminance_source.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\reader.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\result.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\resultpoint.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\zxing.hpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\scale\super_scale.hpp">
+      <Filter>wechat_qrcode\scale</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\detector\align.hpp">
+      <Filter>wechat_qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\detector\ssd_detector.hpp">
+      <Filter>wechat_qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\error_correction_level.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\format_information.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\qrcode_reader.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\version.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\alignment_pattern.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\alignment_pattern_finder.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\detector.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\finder_pattern.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\finder_pattern_finder.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\finder_pattern_info.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\detector\pattern_result.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\bitmatrixparser.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\datablock.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\datamask.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\decoded_bit_stream_parser.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\decoder.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\mode.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\qrcode\decoder\qrcode_decoder_metadata.hpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\array.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\bitarray.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\bitmatrix.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\bitsource.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\bytematrix.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\characterseteci.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\counted.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\decoder_result.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\detector_result.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\greyscale_luminance_source.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\greyscale_rotated_luminance_source.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\grid_sampler.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\imagecut.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\kmeans.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\mathutils.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\perspective_transform.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\str.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\stringutils.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\unicomblock.hpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\binarizer\adaptive_threshold_mean_binarizer.hpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\binarizer\fast_window_binarizer.hpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\binarizer\global_histogram_binarizer.hpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\binarizer\hybrid_binarizer.hpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\binarizer\simple_adaptive_binarizer.hpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\reedsolomon\genericgf.hpp">
+      <Filter>wechat_qrcode\zxing\common\reedsolomon</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\reedsolomon\genericgfpoly.hpp">
+      <Filter>wechat_qrcode\zxing\common\reedsolomon</Filter>
+    </ClInclude>
+    <ClInclude Include="wechat_qrcode\zxing\common\reedsolomon\reed_solomon_decoder.hpp">
+      <Filter>wechat_qrcode\zxing\common\reedsolomon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -34,6 +250,171 @@
     </ClCompile>
     <ClCompile Include="WechatQRCodeLib.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\binarizermgr.cpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\decodermgr.cpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\imgsource.cpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\wechat_qrcode.cpp">
+      <Filter>wechat_qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\binarizer.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\binarybitmap.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\errorhandler.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\luminance_source.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\reader.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\result.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\resultpoint.cpp">
+      <Filter>wechat_qrcode\zxing</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\scale\super_scale.cpp">
+      <Filter>wechat_qrcode\scale</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\detector\align.cpp">
+      <Filter>wechat_qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\detector\ssd_detector.cpp">
+      <Filter>wechat_qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\error_correction_level.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\format_information.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\qrcode_reader.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\version.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\alignment_pattern.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\alignment_pattern_finder.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\detector.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\finder_pattern.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\finder_pattern_finder.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\finder_pattern_info.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\detector\pattern_result.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\detector</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\decoder\bitmatrixparser.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\decoder\datablock.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\decoder\datamask.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\decoder\decoded_bit_stream_parser.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\decoder\decoder.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\qrcode\decoder\mode.cpp">
+      <Filter>wechat_qrcode\zxing\qrcode\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\bitarray.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\bitmatrix.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\bitsource.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\bytematrix.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\characterseteci.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\decoder_result.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\detector_result.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\greyscale_luminance_source.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\greyscale_rotated_luminance_source.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\grid_sampler.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\imagecut.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\kmeans.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\perspective_transform.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\str.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\stringutils.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\unicomblock.cpp">
+      <Filter>wechat_qrcode\zxing\common</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\binarizer\adaptive_threshold_mean_binarizer.cpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\binarizer\fast_window_binarizer.cpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\binarizer\global_histogram_binarizer.cpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\binarizer\hybrid_binarizer.cpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\binarizer\simple_adaptive_binarizer.cpp">
+      <Filter>wechat_qrcode\zxing\common\binarizer</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\reedsolomon\genericgf.cpp">
+      <Filter>wechat_qrcode\zxing\common\reedsolomon</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\reedsolomon\genericgfpoly.cpp">
+      <Filter>wechat_qrcode\zxing\common\reedsolomon</Filter>
+    </ClCompile>
+    <ClCompile Include="wechat_qrcode\zxing\common\reedsolomon\reed_solomon_decoder.cpp">
+      <Filter>wechat_qrcode\zxing\common\reedsolomon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
