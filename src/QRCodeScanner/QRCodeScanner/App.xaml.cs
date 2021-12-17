@@ -44,7 +44,7 @@ namespace QRCodeScanner
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
-            m_window.Title = "fuck you";
+            m_window.Title = "QR Code Scanner";
             m_window.Activate();
 
             var hwnd = PInvoke.User32.GetActiveWindow();

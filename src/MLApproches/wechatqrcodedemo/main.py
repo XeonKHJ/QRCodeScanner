@@ -1,0 +1,3 @@
+import caffe
+
+print("fuck")
