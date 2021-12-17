@@ -29,6 +29,7 @@ WECHATQRCODELIB_API int LoadModel(std::string path1, std::string path2, std::str
 {
 	detector = cv::wechat_qrcode::WeChatQRCode("detect.prototxt", "detect.caffemodel", "sr.prototxt", "sr.caffemodel");
 	isInit = true;
+	return 0;
 }
 
 

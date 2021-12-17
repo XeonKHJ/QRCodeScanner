@@ -2,7 +2,7 @@
   "profiles": {
     "QRCodeScanner (Package)": {
       "commandName": "MsixPackage",
-      "nativeDebugging": false
+      "nativeDebugging": true
     },
     "QRCodeScanner (Unpackaged)": {
       "commandName": "Project"

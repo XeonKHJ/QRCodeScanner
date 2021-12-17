@@ -43,6 +43,9 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WechatQRCodeLib\WechatQRCodeLib\WechatQRCodeLib.vcxproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="ErrorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -57,4 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy C:\Users\redal\source\repos\QRCodeScanner\src\QRCodeScanner\x64\Debug\* $(TargetDir)AppX\" />
+  </Target>
 </Project>
