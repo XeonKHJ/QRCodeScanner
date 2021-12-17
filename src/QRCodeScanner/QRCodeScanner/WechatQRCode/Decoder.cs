@@ -10,7 +10,7 @@ namespace QRCodeScanner.WechatQRCode
     {
         public void LoadModel()
         {
-
+            
         }
 
         public void DetectAndDecode()
