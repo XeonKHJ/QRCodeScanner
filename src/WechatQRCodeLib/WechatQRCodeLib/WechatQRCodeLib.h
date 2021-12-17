@@ -5,7 +5,7 @@
 #define WECHATQRCODELIB_API __declspec(dllimport)
 #endif
 
-extern "C" WECHATQRCODELIB_API void ReturnSameInt(int a);
+extern "C" WECHATQRCODELIB_API int ReturnSameInt(int a);
 
 extern "C" WECHATQRCODELIB_API void DetectQRCodePos();
 

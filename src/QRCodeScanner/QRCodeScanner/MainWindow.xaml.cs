@@ -38,6 +38,7 @@ namespace QRCodeScanner
             _qRCodeWindow = new QRCodeWindow();
             _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
+            var a = ReturnSameInt(5);
         }
 
         private QRCodeWindow _qRCodeWindow;
@@ -240,5 +241,8 @@ namespace QRCodeScanner
         {
             e.AcceptedOperation = DataPackageOperation.Copy;
         }
+
+        [DllImport("WechatQRCodeLib.dll")]
+        public static extern int ReturnSameInt(int a);
     }
 }
