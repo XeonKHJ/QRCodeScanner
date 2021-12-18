@@ -20,6 +20,13 @@ using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using Windows.Media;
+using Windows.Media.Capture;
+using Windows.Media.MediaProperties;
+using Windows.Devices.Enumeration;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.UI.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -38,7 +45,6 @@ namespace QRCodeScanner
             _qRCodeWindow = new QRCodeWindow();
             _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
-            var a = ReturnSameInt(5);
 
             _decoder = new WechatQRCode.Decoder();
             _decoder.PrepareModel();
@@ -134,7 +140,7 @@ namespace QRCodeScanner
             bitmap.UnlockBits(bitmapData);
 
 
-            var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes).ConfigureAwait(true);
+            var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes, bytePerPixel).ConfigureAwait(true);
 
             // do something with the result
             if (result != null)
@@ -242,10 +248,5 @@ namespace QRCodeScanner
         {
             e.AcceptedOperation = DataPackageOperation.Copy;
         }
-
-        [DllImport("WechatQRCodeLib.dll")]
-        public static extern int ReturnSameInt(int a);
-
-
     }
 }

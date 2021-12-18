@@ -9,7 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <Button x:Name="CloseButton" Click="CloseButton_Click" HorizontalAlignment="Stretch" Height="50" Margin="0, 0, 0, 10">Close</Button>
-        <Image x:Name="QRCodeImage" Width="300"></Image>
+        <Button x:Name="CloseButton" Click="CloseButton_Click" HorizontalAlignment="Stretch" Width="250" Margin="0, 0, 0, 10">Close</Button>
+        <Viewbox Width="250" Height="250">
+            <Image x:Name="QRCodeImage"></Image>
+        </Viewbox>
+        
     </StackPanel>
 </ContentDialog>

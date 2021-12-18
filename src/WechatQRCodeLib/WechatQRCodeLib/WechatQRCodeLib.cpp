@@ -17,10 +17,17 @@ WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * 
 	int type = CV_8UC4;
 	switch (channel)
 	{
+	case 4:
+		type = CV_8UC4;
+		break;
+	case 3:
+		type = CV_8UC3;
+	case 1:
+		type = CV_8UC1;
 	default:
 		break;
 	}
-	auto img = cv::Mat(height, width, CV_8UC4);
+	auto img = cv::Mat(height, width, type);
 	img.data = pixelArray;
 
 	auto result = detector->detectAndDecode(img);
@@ -41,9 +48,7 @@ WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * 
 	{
 		// No result
 	}
-	//delete[] rArray;
-	//delete[] gArray;
-	//delete[] bArray;
+
 	return returnSize;
 }
 

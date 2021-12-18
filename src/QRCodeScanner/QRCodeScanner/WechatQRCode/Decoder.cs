@@ -31,7 +31,7 @@ namespace QRCodeScanner.WechatQRCode
         }
 
         public bool IsDecoderLoaded { private set; get; }
-        public async Task<string> DetectAndDecodeAsync(int width, int height, byte[] pixelArray)
+        public async Task<string> DetectAndDecodeAsync(int width, int height, byte[] pixelArray, int channel)
         {
 
             IntPtr resultPtr = IntPtr.Zero;
@@ -41,8 +41,8 @@ namespace QRCodeScanner.WechatQRCode
             {
                 await Task.Run(() =>
                 {
-                    length = DetectQRCodePos(width, height, pixelArray, 4, ref resultPtr);
-                    strRet = Marshal.PtrToStringAnsi(resultPtr);
+                    length = DetectQRCodePos(width, height, pixelArray, channel, ref resultPtr);
+                    strRet = Marshal.PtrToStringUTF8(resultPtr);
                     FreeResultString(resultPtr, length);
                 });
             }
