@@ -14,7 +14,6 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
-using ZXing;
 using System.Runtime.InteropServices;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
@@ -109,24 +108,24 @@ namespace QRCodeScanner
         {
             Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(stream);
             var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
-            var luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB32;
+
             int bytePerPixel = 4;
             switch (bitmap.PixelFormat)
             {
                 case PixelFormat.Format8bppIndexed:
                     bytePerPixel = 1;
-                    luminanceFormat = RGBLuminanceSource.BitmapFormat.Gray8;
+
                     break;
                 case PixelFormat.Format24bppRgb:
                     bytePerPixel = 3;
-                    luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB24;
+
                     break;
                 case PixelFormat.Format32bppArgb:
                     bytePerPixel = 4;
-                    luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB32;
+   
                     break;
                 case PixelFormat.Format32bppRgb:
-                    luminanceFormat = RGBLuminanceSource.BitmapFormat.RGB32;
+
                     bytePerPixel = 4;
                     break;
                 default:
