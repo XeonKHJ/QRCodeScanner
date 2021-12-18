@@ -95,7 +95,7 @@ namespace QRCodeScanner
             }
         }
 
-        private void ScanQRCodeFromStream(Stream stream)
+        private async void ScanQRCodeFromStream(Stream stream)
         {
             Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(stream);
             var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -132,17 +132,12 @@ namespace QRCodeScanner
 
             WechatQRCode.Decoder decoder = new WechatQRCode.Decoder();
             decoder.PrepareModel();
-            decoder.DetectAndDecode(bitmapData.Width, bitmapData.Height, bytes);
+            var result = await decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes).ConfigureAwait(true);
 
-            /// Scan
-            // create a barcode reader instance
-            IBarcodeReader reader = new BarcodeReader();
-            // detect and decode the barcode inside the bitmap
-            var result = reader.Decode(bytes, bitmap.Width, bitmap.Height, luminanceFormat);
             // do something with the result
             if (result != null)
             {
-                ContentTextBox.Text = result.Text;
+                ContentTextBox.Text = result;
             }
             else
             {

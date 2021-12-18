@@ -2,6 +2,7 @@
 #include "WechatQRCodeLib.h"
 #include <opencv2/core.hpp>
 #include "wechat_qrcode/wechat_qrcode.hpp"
+#include <opencv2/imgproc.hpp>
 
 bool isInit = false;
 cv::wechat_qrcode::WeChatQRCode * detector;
@@ -11,48 +12,39 @@ WECHATQRCODELIB_API int ReturnSameInt(int a)
 	return a + 1;
 }
 
-WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, uchar* pixelArray)
+WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * pixelArray, int channel, char ** stringResult)
 {
-	auto img = cv::Mat(height, width, CV_8U);
-	img.data = pixelArray;
-	auto pixelCount = width * height;
-	auto rArray = new uchar[pixelCount];
-	auto gArray = new uchar[pixelCount];
-	auto bArray = new uchar[pixelCount];
-
-	int channel = 4;
-	int offset = 0;
-	int i = 0;
-	for (offset = 0, i = 0; offset < pixelCount * channel; offset += channel, ++i)
+	int type = CV_8UC4;
+	switch (channel)
 	{
-		rArray[i] = pixelArray[offset + 1];
-		gArray[i] = pixelArray[offset + 2];
-		bArray[i] = pixelArray[offset + 3];
+	default:
+		break;
 	}
-	auto rImg = cv::Mat(height, width, CV_8U);
-	rImg.data = rArray;
-	auto gImg = cv::Mat(height, width, CV_8U);
-	gImg.data = gArray;
-	auto bImg = cv::Mat(height, width, CV_8U);
-	bImg.data = bArray;
-	cv::Mat matChannels[3] = { rImg, gImg, bImg };
-	cv::Mat mergeImg;
-	cv::merge(matChannels, 3, mergeImg);
-	auto channels = mergeImg.channels();
+	auto img = cv::Mat(height, width, CV_8UC4);
+	img.data = pixelArray;
 
-	auto result = detector->detectAndDecode(mergeImg);
-	
+	auto result = detector->detectAndDecode(img);
+	int returnSize = 0;
 	DetectResult detectResult;
+	char* resultchararray = nullptr;
 	if (result.size() != 0)
 	{
-		detectResult.result = result[0];
+		// fetch first result.
+		auto stringLength = result[0].length() + 1;
+		returnSize = stringLength;
+		resultchararray = new char[stringLength];
+		memset(resultchararray, 0, stringLength);
+		memcpy((void*)resultchararray, result[0].c_str(), stringLength - 1);
+		*stringResult = resultchararray;
 	}
-
-	delete[] rArray;
-	delete[] gArray;
-	delete[] bArray;
-
-	return 1;
+	else
+	{
+		// No result
+	}
+	//delete[] rArray;
+	//delete[] gArray;
+	//delete[] bArray;
+	return returnSize;
 }
 
 WECHATQRCODELIB_API int LoadModel(char * shit)
@@ -62,6 +54,11 @@ WECHATQRCODELIB_API int LoadModel(char * shit)
 	detector = new cv::wechat_qrcode::WeChatQRCode(basePath + "detect.prototxt", basePath + "detect.caffemodel", basePath+"sr.prototxt", basePath+"sr.caffemodel");
 	isInit = true;
 	return 0;
+}
+
+WECHATQRCODELIB_API void FreeResultString(char* stringptr, int size)
+{
+	delete[] stringptr;
 }
 
 
