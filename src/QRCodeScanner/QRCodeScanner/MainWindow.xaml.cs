@@ -42,6 +42,7 @@ namespace QRCodeScanner
         {
             this.InitializeComponent();
 
+
             _qRCodeWindow = new QRCodeWindow();
             _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
