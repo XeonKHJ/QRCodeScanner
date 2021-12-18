@@ -17,22 +17,39 @@ namespace QRCodeScanner.WechatQRCode
 
         [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void FreeResultString(IntPtr stringptr, int size);
-        public void PrepareModel()
+        public async void PrepareModel()
         {
-            Decoder.LoadModel("fuck you");
+            await Task.Run(() =>
+            {
+                var result = Decoder.LoadModel("fuck you");
+                if (result == 0)
+                {
+                    IsDecoderLoaded = true;
+                }
+            });
+
         }
 
+        public bool IsDecoderLoaded { private set; get; }
         public async Task<string> DetectAndDecodeAsync(int width, int height, byte[] pixelArray)
         {
+
             IntPtr resultPtr = IntPtr.Zero;
             string strRet = string.Empty;
             int length = 0;
-            await Task.Run(() =>
+            if (IsDecoderLoaded)
             {
-                length = DetectQRCodePos(width, height, pixelArray, 4, ref resultPtr);
-                strRet = Marshal.PtrToStringAnsi(resultPtr);
-                FreeResultString(resultPtr, length);
-            });
+                await Task.Run(() =>
+                {
+                    length = DetectQRCodePos(width, height, pixelArray, 4, ref resultPtr);
+                    strRet = Marshal.PtrToStringAnsi(resultPtr);
+                    FreeResultString(resultPtr, length);
+                });
+            }
+            else
+            {
+                throw new Exception("Decoder is not ready.");
+            }
 
 
             return strRet;

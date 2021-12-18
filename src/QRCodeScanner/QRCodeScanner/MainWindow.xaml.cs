@@ -39,8 +39,11 @@ namespace QRCodeScanner
             _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
             var a = ReturnSameInt(5);
-        }
 
+            _decoder = new WechatQRCode.Decoder();
+            _decoder.PrepareModel();
+        }
+        private WechatQRCode.Decoder _decoder;
         private QRCodeWindow _qRCodeWindow;
         private AboutWindow _aboutWindow;
         private ErrorDialog _errorDialog;
@@ -130,9 +133,8 @@ namespace QRCodeScanner
             Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
             bitmap.UnlockBits(bitmapData);
 
-            WechatQRCode.Decoder decoder = new WechatQRCode.Decoder();
-            decoder.PrepareModel();
-            var result = await decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes).ConfigureAwait(true);
+
+            var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes).ConfigureAwait(true);
 
             // do something with the result
             if (result != null)
