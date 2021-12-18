@@ -14,6 +14,10 @@
   <ItemGroup>
     <None Remove="AboutWindow.xaml" />
     <None Remove="ErrorDialog.xaml" />
+    <None Remove="MLModels\detect.caffemodel" />
+    <None Remove="MLModels\detect.prototxt" />
+    <None Remove="MLModels\sr.caffemodel" />
+    <None Remove="MLModels\sr.prototxt" />
     <None Remove="QRCodeWindow.xaml" />
   </ItemGroup>
 
@@ -25,6 +29,18 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="detect.caffemodel">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="detect.prototxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sr.caffemodel">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sr.prototxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +75,9 @@
     <Page Update="AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MLModels\" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy C:\Users\redal\source\repos\QRCodeScanner\src\QRCodeScanner\x64\Debug\* $(TargetDir)AppX\" />

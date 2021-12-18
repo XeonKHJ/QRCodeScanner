@@ -130,6 +130,10 @@ namespace QRCodeScanner
             Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
             bitmap.UnlockBits(bitmapData);
 
+            WechatQRCode.Decoder decoder = new WechatQRCode.Decoder();
+            decoder.PrepareModel();
+            decoder.DetectAndDecode(bitmapData.Width, bitmapData.Height, bytes);
+
             /// Scan
             // create a barcode reader instance
             IBarcodeReader reader = new BarcodeReader();
@@ -245,7 +249,6 @@ namespace QRCodeScanner
         [DllImport("WechatQRCodeLib.dll")]
         public static extern int ReturnSameInt(int a);
 
-        [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern DetectDLLResult DetectQRCodePos(byte[] pixelArray, int width, int height, PixelFormat format);
+
     }
 }

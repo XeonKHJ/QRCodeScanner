@@ -22,6 +22,6 @@ struct DetectResult {
 
 extern "C" WECHATQRCODELIB_API int ReturnSameInt(int a);
 
-extern "C" WECHATQRCODELIB_API DetectResult DetectQRCodePos(BYTE * pixelArray, int width, int height, PixelFormat format);
+extern "C" WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, BYTE * pixelArray);
 
-extern "C" WECHATQRCODELIB_API int LoadModel(std::string path1, std::string path2, std::string path3, std::string path4);
+extern "C" WECHATQRCODELIB_API int LoadModel(char * shit);
