@@ -33,8 +33,6 @@ WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * 
 	auto img = cv::Mat(height, width, type);
 	img.data = pixelArray;
 
-	cv::imwrite("C:/Users/redal/abc.png", img);
-
 	auto result = detector->detectAndDecode(img);
 	int returnSize = 0;
 	DetectResult detectResult;
@@ -53,6 +51,7 @@ WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * 
 	{
 		// No result
 	}
+	img.release();
 
 	return returnSize;
 }

@@ -293,8 +293,8 @@ namespace QRCodeScanner
                     return;
                 }
                 isCameraOn = true;
-                m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
-                m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
+                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
+                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
                 CameraPreviewViewbox.Visibility = Visibility.Visible;
                 frameTimer.Start();
             }
@@ -324,38 +324,42 @@ namespace QRCodeScanner
         int currentInterval = 0;
         private async void FrameTimer_Tick(object sender, object e)
         {
-            //Thread.Sleep(40);
-            OpenCvSharp.Mat cFrame = new OpenCvSharp.Mat();
-            m_vCapture.Read(cFrame);
-
-            var imageBytes = cFrame.ToBytes();
-            var displayBytes = new byte[imageBytes.Length];
-            imageBytes.CopyTo(displayBytes, 0);
-            //using (MemoryStream memoryStream = new MemoryStream(imageBytes))
-            //{
-            MemoryStream memoryStream = new MemoryStream(imageBytes);
-            System.Drawing.Bitmap bitmap = new Bitmap(memoryStream);
-            BitmapImage bitmapImage = new BitmapImage();
-            using (var imageStream = imageBytes.AsBuffer().AsStream())
-            using (var displayStream = displayBytes.AsBuffer().AsStream())
+            if(m_vCapture!=null)
             {
+                //Thread.Sleep(40);
+                OpenCvSharp.Mat cFrame = new OpenCvSharp.Mat();
+                m_vCapture.Read(cFrame);
 
-                var raStream = displayStream.AsRandomAccessStream();
-                await bitmapImage.SetSourceAsync(raStream);
-                CameraPreviewImage.Source = bitmapImage;
-                if (!_decoder.IsScanning)
+                var imageBytes = cFrame.ToBytes();
+                var displayBytes = new byte[imageBytes.Length];
+                imageBytes.CopyTo(displayBytes, 0);
+                //using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                //{
+                MemoryStream memoryStream = new MemoryStream(imageBytes);
+                System.Drawing.Bitmap bitmap = new Bitmap(memoryStream);
+                BitmapImage bitmapImage = new BitmapImage();
+                using (var imageStream = imageBytes.AsBuffer().AsStream())
+                using (var displayStream = displayBytes.AsBuffer().AsStream())
                 {
-                    ScanQRCodeFromStream(imageStream, false);
+
+                    var raStream = displayStream.AsRandomAccessStream();
+                    await bitmapImage.SetSourceAsync(raStream);
+                    CameraPreviewImage.Source = bitmapImage;
+                    if (!_decoder.IsScanning)
+                    {
+                        ScanQRCodeFromStream(imageStream, false);
+                    }
                 }
+
+                //var raStream = imageStream.AsRandomAccessStream();
+                //await bitmapImage.SetSourceAsync(raStream);
+                //CameraPreviewImage.Source = bitmapImage;
+                //}
+
+                cFrame.Release();
+                cFrame.Dispose();
             }
 
-            //var raStream = imageStream.AsRandomAccessStream();
-            //await bitmapImage.SetSourceAsync(raStream);
-            //CameraPreviewImage.Source = bitmapImage;
-            //}
-
-            cFrame.Release();
-            cFrame.Dispose();
         }
 
     }

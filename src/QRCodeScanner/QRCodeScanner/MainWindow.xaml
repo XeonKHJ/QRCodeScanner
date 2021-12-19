@@ -21,7 +21,7 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="4" x:Uid="Description" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5"></TextBlock>
-        <Viewbox x:Name="CameraPreviewViewbox" Visibility="Collapsed" Grid.Row="0" Grid.ColumnSpan="4">
+        <Viewbox x:Name="CameraPreviewViewbox" Visibility="Collapsed" Stretch="UniformToFill" Grid.Row="0" Grid.ColumnSpan="4">
             <Image x:Name="CameraPreviewImage"></Image>
         </Viewbox>
         <TextBox x:Name="ContentTextBox"  Grid.Row="0" Grid.ColumnSpan="4" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
