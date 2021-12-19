@@ -7,9 +7,11 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -31,6 +33,30 @@ namespace QRCodeScanner
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        public bool IsChinese
+        {
+            get
+            {
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (currentCulture.TwoLetterISOLanguageName == "zh")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsEnglish
+        {
+            get
+            {
+                return !IsChinese;
+            }
         }
     }
 }

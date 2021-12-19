@@ -13,7 +13,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <RichTextBlock TextWrapping="WrapWholeWords">
+        <RichTextBlock TextWrapping="WrapWholeWords" Visibility="{x:Bind IsEnglish}">
             <Paragraph>Hi, I'm QR-Code Scanner app developer Kang Hongjia. You can follow me on
                 <Hyperlink NavigateUri="https://twitter.com/xeonkhj">Twitter</Hyperlink> ,
                 <Hyperlink NavigateUri="https://twitter.com/xeonkhj">Weibo</Hyperlink> and
@@ -26,6 +26,38 @@
                 <Hyperlink NavigateUri="https://github.com/XeonKHJ/GamePassScores">Github</Hyperlink> . Welcome to check it out.
             </Paragraph>
             <Paragraph>This app uses following third-party open-sourced project:</Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/WeChatCV/opencv_3rdparty">Wechat_QRCode</Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://opencv.org/">OpenCV</Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/shimat/opencvsharp">OpenCVSharp</Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/shimat/opencvsharp">Zxing
+                </Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/codebude/QRCoder">QRCoder
+                </Hyperlink>
+            </Paragraph>
+        </RichTextBlock>
+
+        <RichTextBlock TextWrapping="WrapWholeWords" Visibility="{x:Bind IsChinese}">
+            <Paragraph>嘿！我是二维码扫描应用的开发者，你可以在
+                <Hyperlink NavigateUri="https://twitter.com/xeonkhj">推特</Hyperlink> ,
+                <Hyperlink NavigateUri="https://twitter.com/xeonkhj">微博</Hyperlink> 和
+                <Hyperlink NavigateUri="https://twitter.com/xeonkhj">Github</Hyperlink> 上关注我。
+            </Paragraph>
+            <Paragraph>
+                我构建这个应用是为了探索WinUI3的特性，也希望这个应用可以让你的生活变得方便一点😊。</Paragraph>
+            <Paragraph>该应用能够生成和扫描二维码。</Paragraph>
+            <Paragraph>该应用开源在
+                <Hyperlink NavigateUri="https://github.com/XeonKHJ/GamePassScores">Github</Hyperlink>上，供大家参考。
+            </Paragraph>
+            <Paragraph>该应用使用了以下开源项目：</Paragraph>
             <Paragraph FontSize="10">
                 <Hyperlink NavigateUri="https://github.com/WeChatCV/opencv_3rdparty">Wechat_QRCode</Hyperlink>
             </Paragraph>
