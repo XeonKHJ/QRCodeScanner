@@ -43,6 +43,9 @@ namespace QRCodeScanner
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            // First time open check
+
+
             m_window = new MainWindow();
 
             string windowTitle = "QR Code Scanner";

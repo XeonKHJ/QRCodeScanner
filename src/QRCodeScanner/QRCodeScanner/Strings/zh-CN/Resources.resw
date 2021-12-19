@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>二维码扫描</value>
+  </data>
   <data name="Description.Text" xml:space="preserve">
     <value>粘贴或拖拽二维码图片到此扫描</value>
   </data>

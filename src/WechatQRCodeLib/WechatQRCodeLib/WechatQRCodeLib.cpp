@@ -52,10 +52,10 @@ WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * 
 	return returnSize;
 }
 
-WECHATQRCODELIB_API int LoadModel(char * shit)
+WECHATQRCODELIB_API int LoadModel(char * basePathCharPtr)
 {
-	string baseshit = string(shit);
-	std::string basePath = "C:\\Users\\redal\\source\\repos\\QRCodeScanner\\DLModel\\";
+	string basePath = string(basePathCharPtr) + "\\";
+
 	detector = new cv::wechat_qrcode::WeChatQRCode(basePath + "detect.prototxt", basePath + "detect.caffemodel", basePath+"sr.prototxt", basePath+"sr.caffemodel");
 	isInit = true;
 	return 0;

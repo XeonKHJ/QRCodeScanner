@@ -4,16 +4,17 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  IgnorableNamespaces="uap rescap mp">
 
   <Identity
-    Name="72d83f75-502e-4ba1-ba35-4c5167e8540a"
-    Publisher="CN=redal"
+    Name="49B948DFEE.QR-CodeScanner"
+    Publisher="CN=6D1D92C0-BE50-4A21-AFF0-97E77C56134C"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>QRCodeScanner</DisplayName>
-    <PublisherDisplayName>redal</PublisherDisplayName>
+    <DisplayName>QR-Code Scanner</DisplayName>
+    <PublisherDisplayName>康宏嘉</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -31,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="QRCode Scanner"
+        DisplayName="ms-resource:AppDisplayName"
         Description="An app that can scan QR code from image in clipboard or from camera."
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
@@ -47,4 +48,6 @@
     <DeviceCapability Name="webcam"/>
     <DeviceCapability Name="microphone"/>
   </Capabilities>
+
+  <mp:PhoneIdentity PhoneProductId="684833ce-bc47-4d2c-a915-f4ce1dc5948b"/>
 </Package>

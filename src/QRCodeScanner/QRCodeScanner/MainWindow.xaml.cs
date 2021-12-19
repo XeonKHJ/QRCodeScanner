@@ -41,13 +41,14 @@ namespace QRCodeScanner
         {
             this.InitializeComponent();
 
+            var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
 
             _qRCodeWindow = new QRCodeWindow();
             _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
 
             _decoder = new WechatQRCode.Decoder();
-            _decoder.PrepareModel();
+            _decoder.PrepareModel(installedLocation);
         }
         private WechatQRCode.Decoder _decoder;
         private QRCodeWindow _qRCodeWindow;

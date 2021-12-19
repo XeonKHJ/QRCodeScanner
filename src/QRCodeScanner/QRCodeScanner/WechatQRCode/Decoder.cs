@@ -17,11 +17,11 @@ namespace QRCodeScanner.WechatQRCode
 
         [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void FreeResultString(IntPtr stringptr, int size);
-        public async void PrepareModel()
+        public async void PrepareModel(string basePath)
         {
             await Task.Run(() =>
             {
-                var result = Decoder.LoadModel("fuck you");
+                var result = Decoder.LoadModel(basePath);
                 if (result == 0)
                 {
                     IsDecoderLoaded = true;
