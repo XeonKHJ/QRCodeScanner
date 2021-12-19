@@ -120,11 +120,20 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>二维码扫描</value>
   </data>
+  <data name="CameraIsOccupiedError" xml:space="preserve">
+    <value>摄像头正在被其他程序使用。</value>
+  </data>
+  <data name="CameraPermissionError" xml:space="preserve">
+    <value>打开摄像头失败。请在Windows设置中检查该应用的摄像头权限。</value>
+  </data>
   <data name="Description.Text" xml:space="preserve">
     <value>粘贴或拖拽二维码图片到此扫描</value>
   </data>
   <data name="GenerateQRCode.Content" xml:space="preserve">
     <value>生成二维码</value>
+  </data>
+  <data name="NoCameraError" xml:space="preserve">
+    <value>当前设备检测不到摄像头。</value>
   </data>
   <data name="OpenImage.Text" xml:space="preserve">
     <value>打开图片</value>

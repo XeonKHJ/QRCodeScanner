@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -36,6 +37,8 @@ namespace QRCodeScanner
             this.InitializeComponent();
         }
 
+
+        public static ResourceLoader ResourceLoader { get; private set; }
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
@@ -49,10 +52,10 @@ namespace QRCodeScanner
             m_window = new MainWindow();
 
             string windowTitle = "QR Code Scanner";
-            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
-            if (resourceLoader != null)
+            ResourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+            if (ResourceLoader != null)
             {
-                windowTitle = resourceLoader.GetString("WindowTitle");
+                windowTitle = ResourceLoader.GetString("WindowTitle");
             }
 
             m_window.Title = windowTitle;

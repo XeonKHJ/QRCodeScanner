@@ -120,11 +120,20 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>QR Code Scanner</value>
   </data>
+  <data name="CameraIsOccupiedError" xml:space="preserve">
+    <value>The camera is occupied by other program.</value>
+  </data>
+  <data name="CameraPermissionError" xml:space="preserve">
+    <value>Camera failed to open. Please check camera permission for this app in Windows Settings.</value>
+  </data>
   <data name="Description.Text" xml:space="preserve">
     <value>Paste or drag image here to scan.</value>
   </data>
   <data name="GenerateQRCode.Content" xml:space="preserve">
     <value>Generate QR Code</value>
+  </data>
+  <data name="NoCameraError" xml:space="preserve">
+    <value>No camera detected in this device.</value>
   </data>
   <data name="OpenImage.Text" xml:space="preserve">
     <value>Open Image</value>

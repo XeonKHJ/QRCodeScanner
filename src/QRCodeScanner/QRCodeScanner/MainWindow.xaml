@@ -20,7 +20,7 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" x:Uid="Description" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5"></TextBlock>
+        <TextBlock x:Name="DescriptionTextBlock" Grid.Row="0" Grid.ColumnSpan="4" x:Uid="Description" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5"></TextBlock>
         <Grid Name="CameraPreviewGrid" Grid.Row="0" Grid.ColumnSpan="4" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>

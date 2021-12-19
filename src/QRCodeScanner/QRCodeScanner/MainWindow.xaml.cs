@@ -307,6 +307,10 @@ namespace QRCodeScanner
                         var firstItem = CameraListFlyout.Items[0].Tag as CameraDeviceViewModel;
                         StartCamera(firstItem);
                     }
+                    else
+                    {
+                        DisplayError(App.ResourceLoader.GetString("NoCameraError"));
+                    }
                     
                 }
                 else
@@ -334,28 +338,37 @@ namespace QRCodeScanner
 
         void StartCamera(CameraDeviceViewModel viewModel)
         {
-            m_vCapture = new OpenCvSharp.VideoCapture(viewModel.Id);
-
-            if (!m_vCapture.IsOpened())
+            try
             {
-                DisplayError("Camera failed.");
-                System.Diagnostics.Debug.WriteLine("Camera failed.");
-                return;
+                m_vCapture = new OpenCvSharp.VideoCapture(viewModel.Id);
+
+                if (!m_vCapture.IsOpened())
+                {
+                    var displayErrorMsg = App.ResourceLoader.GetString("CameraPermissionError");
+                    DisplayError(displayErrorMsg);
+                    return;
+                }
+                else
+                {
+                    CameraListDropDownButton.Content = viewModel.Name;
+
+                    isCameraOn = true;
+                    //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
+                    //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
+                    CameraPreviewGrid.Visibility = Visibility.Visible;
+                    ContentTextBox.Visibility = Visibility.Collapsed;
+                    DescriptionTextBlock.Visibility = Visibility.Collapsed;
+                    frameTimer.Start();
+                }
             }
-            else
+            catch(Exception ex)
             {
-                CameraListDropDownButton.Content = viewModel.Name;
 
-                isCameraOn = true;
-                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
-                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
-                CameraPreviewGrid.Visibility = Visibility.Visible;
-                ContentTextBox.Visibility = Visibility.Collapsed;
-                frameTimer.Start();
             }
         }
         void StopCamera()
         {
+            isCameraOn = false;
             frameTimer.Stop();
 
             if (m_vCapture != null)
@@ -364,41 +377,59 @@ namespace QRCodeScanner
             }
 
             m_vCapture = null;
-            isCameraOn = false;
-            currentInterval = 0;
             CameraPreviewGrid.Visibility = Visibility.Collapsed;
             ContentTextBox.Visibility = Visibility.Visible;
+            DescriptionTextBlock.Visibility = Visibility.Visible;
         }
 
-        int scanInterval = 10;
-        int currentInterval = 0;
         private async void FrameTimer_Tick(object sender, object e)
         {
             if(m_vCapture!=null)
             {
                 //Thread.Sleep(40);
                 OpenCvSharp.Mat cFrame = new OpenCvSharp.Mat();
-                m_vCapture.Read(cFrame);
-
-                var imageBytes = cFrame.ToBytes();
-                var displayBytes = new byte[imageBytes.Length];
-                imageBytes.CopyTo(displayBytes, 0);
-                //using (MemoryStream memoryStream = new MemoryStream(imageBytes))
-                //{
-                MemoryStream memoryStream = new MemoryStream(imageBytes);
-                System.Drawing.Bitmap bitmap = new Bitmap(memoryStream);
-                BitmapImage bitmapImage = new BitmapImage();
-                using (var imageStream = imageBytes.AsBuffer().AsStream())
-                using (var displayStream = displayBytes.AsBuffer().AsStream())
+                try
                 {
+                    m_vCapture.Read(cFrame);
 
-                    var raStream = displayStream.AsRandomAccessStream();
-                    await bitmapImage.SetSourceAsync(raStream);
-                    CameraPreviewImage.Source = bitmapImage;
-                    if (!_decoder.IsScanning)
+                    var imageBytes = cFrame.ToBytes();
+                    var displayBytes = new byte[imageBytes.Length];
+                    imageBytes.CopyTo(displayBytes, 0);
+                    //using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                    //{
+                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+
+                    using (var imageStream = imageBytes.AsBuffer().AsStream())
+                    using (var displayStream = displayBytes.AsBuffer().AsStream())
                     {
-                        ScanQRCodeFromStream(imageStream, false);
+                        System.Drawing.Bitmap bitmap = new Bitmap(memoryStream);
+                        BitmapImage bitmapImage = new BitmapImage();
+
+                        var raStream = displayStream.AsRandomAccessStream();
+                        await bitmapImage.SetSourceAsync(raStream);
+                        CameraPreviewImage.Source = bitmapImage;
+                        if (!_decoder.IsScanning)
+                        {
+                            ScanQRCodeFromStream(imageStream, false);
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    if (ex.Message == "!image.empty()")
+                    {
+                        if(isCameraOn)
+                        {
+                            //StopCamera();
+                            frameTimer.Stop();
+                            DisplayError(App.ResourceLoader.GetString("CameraIsOccupiedError"));
+                        }
+                    }
+                    else
+                    {
+                        DisplayError(ex.Message);
+                    }
+                    System.Diagnostics.Debug.WriteLine("dskfjlsd");
                 }
 
                 cFrame.Release();
