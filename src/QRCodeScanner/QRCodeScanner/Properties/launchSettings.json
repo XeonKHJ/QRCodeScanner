@@ -6,6 +6,12 @@
     },
     "QRCodeScanner (Unpackaged)": {
       "commandName": "Project"
+    },
+    "配置文件 1": {
+      "commandName": "MsixPackage",
+      "authenticationMode": "Windows",
+      "remoteDebugMachine": "KHJ-SURGO:4026",
+      "nativeDebugging": true
     }
   }
 }

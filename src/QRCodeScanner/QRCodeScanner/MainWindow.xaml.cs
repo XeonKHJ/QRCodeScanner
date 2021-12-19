@@ -27,6 +27,7 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Collections.ObjectModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -264,29 +265,42 @@ namespace QRCodeScanner
         DispatcherTimer frameTimer = new DispatcherTimer();
         OpenCvSharp.VideoCapture m_vCapture;
         private bool isCameraOn = false;
-        private void CameraButton_Click(object sender, RoutedEventArgs e)
+
+        ObservableCollection<CameraDeviceViewModel> cameraDevices = new System.Collections.ObjectModel.ObservableCollection<CameraDeviceViewModel>();
+        private async void CameraButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (!isCameraOn)
                 {
-                    m_vCapture = new OpenCvSharp.VideoCapture(0);
+                    var devices = await DeviceInformation.FindAllAsync();
+                    var cameraList = (from device in devices where Windows.Media.Capture.MediaCapture.IsVideoProfileSupported(device.Id) && (device.EnclosureLocation != null) select device).ToList();
+                    cameraDevices.Clear();
+                    CameraListFlyout.Items.Clear();
+                    for (int i = 0; i < cameraList.Count; ++i)
+                    {
+                        var deviceViewModel = new CameraDeviceViewModel
+                        {
+                            Id = i,
+                            Name = cameraList[i].Name,
+                        };
+                        cameraDevices.Add(deviceViewModel);
 
-                    if (!m_vCapture.IsOpened())
-                    {
-                        DisplayError("Camera failed.");
-                        System.Diagnostics.Debug.WriteLine("Camera failed.");
-                        return;
+                        var flyoutItem = new MenuFlyoutItem
+                        {
+                            Text = cameraList[i].Name,
+                            Tag = deviceViewModel
+                        };
+                        flyoutItem.Click += FlyoutItem_Click;
+                        CameraListFlyout.Items.Add(flyoutItem);                        
                     }
-                    else
+
+                    if(CameraListFlyout.Items.Count > 0)
                     {
-                        isCameraOn = true;
-                        //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
-                        //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
-                        CameraPreviewViewbox.Visibility = Visibility.Visible;
-                        ContentTextBox.Visibility = Visibility.Collapsed;
-                        frameTimer.Start();
+                        var firstItem = CameraListFlyout.Items[0].Tag as CameraDeviceViewModel;
+                        StartCamera(firstItem);
                     }
+                    
                 }
                 else
                 {
@@ -295,12 +309,44 @@ namespace QRCodeScanner
             }catch (Exception ex)
             {
                 DisplayError("Camera failed.");
-                StopCamera();
+                //StopCamera();
             }
 
         }
 
+        private void FlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            var flyoutItem = (MenuFlyoutItem)sender;
+            var viewModel = flyoutItem.Tag as CameraDeviceViewModel;
+            if (viewModel != null)
+            {
+                StopCamera();
+                StartCamera(viewModel);
+            }
+        }
 
+        void StartCamera(CameraDeviceViewModel viewModel)
+        {
+            m_vCapture = new OpenCvSharp.VideoCapture(viewModel.Id);
+
+            if (!m_vCapture.IsOpened())
+            {
+                DisplayError("Camera failed.");
+                System.Diagnostics.Debug.WriteLine("Camera failed.");
+                return;
+            }
+            else
+            {
+                CameraListDropDownButton.Content = viewModel.Name;
+
+                isCameraOn = true;
+                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
+                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
+                CameraPreviewGrid.Visibility = Visibility.Visible;
+                ContentTextBox.Visibility = Visibility.Collapsed;
+                frameTimer.Start();
+            }
+        }
         void StopCamera()
         {
             frameTimer.Stop();
@@ -313,7 +359,7 @@ namespace QRCodeScanner
             m_vCapture = null;
             isCameraOn = false;
             currentInterval = 0;
-            CameraPreviewViewbox.Visibility = Visibility.Collapsed;
+            CameraPreviewGrid.Visibility = Visibility.Collapsed;
             ContentTextBox.Visibility = Visibility.Visible;
         }
 

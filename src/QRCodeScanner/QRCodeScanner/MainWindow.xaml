@@ -21,9 +21,22 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="4" x:Uid="Description" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5"></TextBlock>
-        <Viewbox x:Name="CameraPreviewViewbox" Visibility="Collapsed" Stretch="UniformToFill" Grid.Row="0" Grid.ColumnSpan="4">
+        <Grid Name="CameraPreviewGrid" Grid.Row="0" Grid.ColumnSpan="4" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <DropDownButton x:Name="CameraListDropDownButton" HorizontalAlignment="Stretch" Grid.Row="0">
+                <DropDownButton.Flyout>
+                    <MenuFlyout x:Name="CameraListFlyout" Placement="Bottom">
+                        
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        <Viewbox Grid.Row="1" x:Name="CameraPreviewViewbox"  Stretch="UniformToFill" >
             <Image x:Name="CameraPreviewImage"></Image>
         </Viewbox>
+        </Grid>
         <TextBox x:Name="ContentTextBox"  Grid.Row="0" Grid.ColumnSpan="4" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
         <Button x:Name="GenerateButton" x:Uid="GenerateQRCode" Grid.Row="1" Grid.ColumnSpan="4" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
         
