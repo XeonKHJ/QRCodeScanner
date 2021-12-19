@@ -275,6 +275,7 @@ namespace QRCodeScanner
                     System.Diagnostics.Debug.WriteLine("Camera failed.");
                     return;
                 }
+
                 isCameraOn = true;
                 //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
                 //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
