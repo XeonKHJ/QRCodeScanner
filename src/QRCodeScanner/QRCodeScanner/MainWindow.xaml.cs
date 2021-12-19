@@ -146,23 +146,6 @@ namespace QRCodeScanner
             Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
             bitmap.UnlockBits(bitmapData);
 
-
-            //if (bytePerPixel == 3)
-            //{
-            //    byte[] newBytes = new byte[bitmapData.Width * bitmapData.Height * 4];
-            //    int i = 0;
-            //    int j = 0;
-            //    for (; i < newBytes.Length; i += 4, j += 3)
-            //    {
-            //        newBytes[i] = 255;
-            //        newBytes[i + 1] = bytes[j];
-            //        newBytes[i + 2] = bytes[j + 1];
-            //        newBytes[i + 3] = bytes[j + 2];
-            //    }
-            //    bytes = newBytes;
-            //    bytePerPixel = 4;
-            //}
-
             var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes, bytePerPixel).ConfigureAwait(true);
 
             // do something with the result
@@ -281,7 +264,7 @@ namespace QRCodeScanner
         DispatcherTimer frameTimer = new DispatcherTimer();
         OpenCvSharp.VideoCapture m_vCapture;
         private bool isCameraOn = false;
-        private async void CameraButton_Click(object sender, RoutedEventArgs e)
+        private void CameraButton_Click(object sender, RoutedEventArgs e)
         {
             if (!isCameraOn)
             {
@@ -350,11 +333,6 @@ namespace QRCodeScanner
                         ScanQRCodeFromStream(imageStream, false);
                     }
                 }
-
-                //var raStream = imageStream.AsRandomAccessStream();
-                //await bitmapImage.SetSourceAsync(raStream);
-                //CameraPreviewImage.Source = bitmapImage;
-                //}
 
                 cFrame.Release();
                 cFrame.Dispose();

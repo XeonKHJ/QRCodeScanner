@@ -13,7 +13,7 @@ namespace QRCodeScanner.WechatQRCode
         static extern int DetectQRCodePos(int width, int height, byte[] pixelArray, int channel, ref IntPtr resultPtr);
 
         [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int LoadModel(string shit);
+        static extern int LoadModel(string modelPath);
 
         [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void FreeResultString(IntPtr stringptr, int size);

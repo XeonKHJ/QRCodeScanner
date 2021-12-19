@@ -25,6 +25,6 @@ extern "C" WECHATQRCODELIB_API int ReturnSameInt(int a);
 
 extern "C" WECHATQRCODELIB_API int DetectQRCodePos(int width, int height, unsigned char  * pixelArray, int channel, char ** stringResult);
 
-extern "C" WECHATQRCODELIB_API int LoadModel(char * shit);
+extern "C" WECHATQRCODELIB_API int LoadModel(char * basePathCharPtr);
 
 extern "C" WECHATQRCODELIB_API void FreeResultString(char * stringptr, int size);
