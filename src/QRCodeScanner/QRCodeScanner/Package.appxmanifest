@@ -49,5 +49,4 @@
     <DeviceCapability Name="microphone"/>
   </Capabilities>
 
-  <mp:PhoneIdentity PhoneProductId="684833ce-bc47-4d2c-a915-f4ce1dc5948b"/>
 </Package>

@@ -133,6 +133,6 @@
     <value>粘贴以扫描</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>二维码扫描</value>
+    <value>扫描二维码</value>
   </data>
 </root>

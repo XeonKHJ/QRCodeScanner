@@ -133,6 +133,6 @@
     <value>Paste to Scan</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>QR Code Scanner</value>
+    <value>QR-Code Scanner</value>
   </data>
 </root>
