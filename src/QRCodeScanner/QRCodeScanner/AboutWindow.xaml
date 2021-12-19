@@ -13,9 +13,37 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock>
-            个人作品。
-        </TextBlock>
+        <RichTextBlock TextWrapping="WrapWholeWords">
+            <Paragraph>Hi, I'm QR-Code Scanner app developer Kang Hongjia. You can follow me on
+                <Hyperlink NavigateUri="https://twitter.com/xeonkhj">Twitter</Hyperlink> ,
+                <Hyperlink NavigateUri="https://twitter.com/xeonkhj">Weibo</Hyperlink> and
+                <Hyperlink NavigateUri="https://twitter.com/xeonkhj">Github</Hyperlink> .
+            </Paragraph>
+            <Paragraph>
+                I build this app to explorer what WinUI3 could do. I hope this app makes your life a little bit better.😊</Paragraph>
+            <Paragraph>This app supports scanning and generating QR-Code.</Paragraph>
+            <Paragraph>This app is open-sourced on
+                <Hyperlink NavigateUri="https://github.com/XeonKHJ/GamePassScores">Github</Hyperlink> . Welcome to check it out.
+            </Paragraph>
+            <Paragraph>This app uses following third-party open-sourced project:</Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/WeChatCV/opencv_3rdparty">Wechat_QRCode</Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://opencv.org/">OpenCV</Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/shimat/opencvsharp">OpenCVSharp</Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/shimat/opencvsharp">Zxing
+                </Hyperlink>
+            </Paragraph>
+            <Paragraph FontSize="10">
+                <Hyperlink NavigateUri="https://github.com/codebude/QRCoder">QRCoder
+                </Hyperlink>
+            </Paragraph>
+        </RichTextBlock>
         <Button x:Name="CloseButton" Click="CloseButton_Click" Grid.Row="1" HorizontalAlignment="Center">Close</Button>
     </Grid>
 </ContentDialog>
