@@ -17,11 +17,15 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" x:Uid="Description" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5"></TextBlock>
-        <TextBox x:Name="ContentTextBox"  Grid.Row="0" Grid.ColumnSpan="3" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
-        <Button x:Name="GenerateButton" x:Uid="GenerateQRCode" Grid.Row="1" Grid.ColumnSpan="3" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" x:Uid="Description" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="30" TextAlignment="Center" TextWrapping="WrapWholeWords" Opacity="0.5"></TextBlock>
+        <Viewbox x:Name="CameraPreviewViewbox" Visibility="Collapsed" Grid.Row="0" Grid.ColumnSpan="4">
+            <Image x:Name="CameraPreviewImage"></Image>
+        </Viewbox>
+        <TextBox x:Name="ContentTextBox"  Grid.Row="0" Grid.ColumnSpan="4" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
+        <Button x:Name="GenerateButton" x:Uid="GenerateQRCode" Grid.Row="1" Grid.ColumnSpan="4" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
         
         <Button x:Name="PasteButton" Grid.Row="2" Grid.Column="0" Click="PasteButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Button.Content>
@@ -43,7 +47,14 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button x:Name="AboutButton" Grid.Row="2" Grid.Column="2" Width="50" VerticalAlignment="Stretch" Click="AboutButton_Click">
+        <Button x:Name="CameraButton" Grid.Row="2" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="CameraButton_Click">
+            <Button.Content>
+                <SymbolIcon>
+                    Camera
+                </SymbolIcon>
+            </Button.Content>
+        </Button>
+        <Button x:Name="AboutButton" Grid.Row="2" Grid.Column="3" Width="50" VerticalAlignment="Stretch" Click="AboutButton_Click">
             <Button.Content>
                 <SymbolIcon>Account</SymbolIcon>
             </Button.Content>

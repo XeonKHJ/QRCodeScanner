@@ -3,6 +3,7 @@
 #include <opencv2/core.hpp>
 #include "wechat_qrcode/wechat_qrcode.hpp"
 #include <opencv2/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 
 bool isInit = false;
 cv::wechat_qrcode::WeChatQRCode * detector;
@@ -22,13 +23,17 @@ WECHATQRCODELIB_API int DetectQRCodePos( int width, int height, unsigned char * 
 		break;
 	case 3:
 		type = CV_8UC3;
+		break;
 	case 1:
 		type = CV_8UC1;
+		break;
 	default:
 		break;
 	}
 	auto img = cv::Mat(height, width, type);
 	img.data = pixelArray;
+
+	cv::imwrite("C:/Users/redal/abc.png", img);
 
 	auto result = detector->detectAndDecode(img);
 	int returnSize = 0;

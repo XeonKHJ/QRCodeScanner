@@ -31,9 +31,10 @@ namespace QRCodeScanner.WechatQRCode
         }
 
         public bool IsDecoderLoaded { private set; get; }
+        public bool IsScanning { private set; get; }
         public async Task<string> DetectAndDecodeAsync(int width, int height, byte[] pixelArray, int channel)
         {
-
+            IsScanning = true;
             IntPtr resultPtr = IntPtr.Zero;
             string strRet = string.Empty;
             int length = 0;
@@ -50,7 +51,7 @@ namespace QRCodeScanner.WechatQRCode
             {
                 throw new Exception("Decoder is not ready.");
             }
-
+            IsScanning = false;
 
             return strRet;
         }

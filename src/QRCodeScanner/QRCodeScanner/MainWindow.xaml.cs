@@ -26,6 +26,7 @@ using Windows.Devices.Enumeration;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Core;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -49,7 +50,12 @@ namespace QRCodeScanner
 
             _decoder = new WechatQRCode.Decoder();
             _decoder.PrepareModel(installedLocation);
+
+            frameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000 / 30);
+            frameTimer.Tick += FrameTimer_Tick;
         }
+
+
         private WechatQRCode.Decoder _decoder;
         private QRCodeWindow _qRCodeWindow;
         private AboutWindow _aboutWindow;
@@ -96,7 +102,7 @@ namespace QRCodeScanner
                         {
                             ScanQRCodeFromStream(imageStream.AsStream());
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             DisplayError(ex.Message);
                         }
@@ -105,7 +111,7 @@ namespace QRCodeScanner
             }
         }
 
-        private async void ScanQRCodeFromStream(Stream stream)
+        private async void ScanQRCodeFromStream(Stream stream, bool IsErrorShown = true)
         {
             Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(stream);
             var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -123,7 +129,7 @@ namespace QRCodeScanner
                     break;
                 case PixelFormat.Format32bppArgb:
                     bytePerPixel = 4;
-   
+
                     break;
                 case PixelFormat.Format32bppRgb:
 
@@ -141,16 +147,38 @@ namespace QRCodeScanner
             bitmap.UnlockBits(bitmapData);
 
 
+            //if (bytePerPixel == 3)
+            //{
+            //    byte[] newBytes = new byte[bitmapData.Width * bitmapData.Height * 4];
+            //    int i = 0;
+            //    int j = 0;
+            //    for (; i < newBytes.Length; i += 4, j += 3)
+            //    {
+            //        newBytes[i] = 255;
+            //        newBytes[i + 1] = bytes[j];
+            //        newBytes[i + 2] = bytes[j + 1];
+            //        newBytes[i + 3] = bytes[j + 2];
+            //    }
+            //    bytes = newBytes;
+            //    bytePerPixel = 4;
+            //}
+
             var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes, bytePerPixel).ConfigureAwait(true);
 
             // do something with the result
             if (result != null)
             {
+                StopCamera();
                 ContentTextBox.Text = result;
             }
             else
             {
-                DisplayError("No text was decoded from the image.");
+                if (IsErrorShown)
+                {
+                    DisplayError("No text was decoded from the image.");
+                }
+                System.Diagnostics.Debug.WriteLine("No text.");
+
             }
         }
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
@@ -198,19 +226,19 @@ namespace QRCodeScanner
                     {
                         ScanQRCodeFromStream(stream.AsStream());
                     }
-                    catch(ArgumentException ex)
+                    catch (ArgumentException ex)
                     {
                         DisplayError("File error.");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         DisplayError(ex.Message);
                     }
                 }
             }
         }
-        
-        
+
+
         private async void DisplayError(string error)
         {
             _errorDialog.XamlRoot = this.Content.XamlRoot;
@@ -249,5 +277,86 @@ namespace QRCodeScanner
         {
             e.AcceptedOperation = DataPackageOperation.Copy;
         }
+
+        DispatcherTimer frameTimer = new DispatcherTimer();
+        OpenCvSharp.VideoCapture m_vCapture;
+        private bool isCameraOn = false;
+        private async void CameraButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isCameraOn)
+            {
+                m_vCapture = new OpenCvSharp.VideoCapture(0);
+
+                if (!m_vCapture.IsOpened())
+                {
+                    System.Diagnostics.Debug.WriteLine("Camera failed.");
+                    return;
+                }
+                isCameraOn = true;
+                m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
+                m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
+                CameraPreviewViewbox.Visibility = Visibility.Visible;
+                frameTimer.Start();
+            }
+            else
+            {
+                StopCamera();
+            }
+        }
+
+
+        void StopCamera()
+        {
+            frameTimer.Stop();
+
+            if (m_vCapture != null)
+            {
+                m_vCapture.Dispose();
+            }
+
+            m_vCapture = null;
+            isCameraOn = false;
+            currentInterval = 0;
+            CameraPreviewViewbox.Visibility = Visibility.Collapsed;
+        }
+
+        int scanInterval = 10;
+        int currentInterval = 0;
+        private async void FrameTimer_Tick(object sender, object e)
+        {
+            //Thread.Sleep(40);
+            OpenCvSharp.Mat cFrame = new OpenCvSharp.Mat();
+            m_vCapture.Read(cFrame);
+
+            var imageBytes = cFrame.ToBytes();
+            var displayBytes = new byte[imageBytes.Length];
+            imageBytes.CopyTo(displayBytes, 0);
+            //using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+            //{
+            MemoryStream memoryStream = new MemoryStream(imageBytes);
+            System.Drawing.Bitmap bitmap = new Bitmap(memoryStream);
+            BitmapImage bitmapImage = new BitmapImage();
+            using (var imageStream = imageBytes.AsBuffer().AsStream())
+            using (var displayStream = displayBytes.AsBuffer().AsStream())
+            {
+
+                var raStream = displayStream.AsRandomAccessStream();
+                await bitmapImage.SetSourceAsync(raStream);
+                CameraPreviewImage.Source = bitmapImage;
+                if (!_decoder.IsScanning)
+                {
+                    ScanQRCodeFromStream(imageStream, false);
+                }
+            }
+
+            //var raStream = imageStream.AsRandomAccessStream();
+            //await bitmapImage.SetSourceAsync(raStream);
+            //CameraPreviewImage.Source = bitmapImage;
+            //}
+
+            cFrame.Release();
+            cFrame.Dispose();
+        }
+
     }
 }
