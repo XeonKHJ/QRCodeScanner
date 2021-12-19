@@ -28,6 +28,7 @@ using Windows.Media.Playback;
 using Windows.UI.Core;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Collections.ObjectModel;
+using Windows.Media.Capture.Frames;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -273,8 +274,14 @@ namespace QRCodeScanner
             {
                 if (!isCameraOn)
                 {
-                    var devices = await DeviceInformation.FindAllAsync();
-                    var cameraList = (from device in devices where Windows.Media.Capture.MediaCapture.IsVideoProfileSupported(device.Id) && (device.EnclosureLocation != null) select device).ToList();
+                    var videoDevices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+                    var groups = await MediaFrameSourceGroup.FindAllAsync();
+
+                    // Filter out color video preview and video record type sources and remove duplicates video devices.
+                    var cameraList = groups.Where(g => g.SourceInfos.Any(s => s.SourceKind == MediaFrameSourceKind.Color &&
+                                                                                (s.MediaStreamType == MediaStreamType.VideoPreview || s.MediaStreamType == MediaStreamType.VideoRecord))
+                                                                                && g.SourceInfos.All(sourceInfo => videoDevices.Any(vd => vd.Id == sourceInfo.DeviceInformation.Id))).ToList();
+
                     cameraDevices.Clear();
                     CameraListFlyout.Items.Clear();
                     for (int i = 0; i < cameraList.Count; ++i)
@@ -282,13 +289,13 @@ namespace QRCodeScanner
                         var deviceViewModel = new CameraDeviceViewModel
                         {
                             Id = i,
-                            Name = cameraList[i].Name,
+                            Name = cameraList[i].DisplayName
                         };
                         cameraDevices.Add(deviceViewModel);
 
                         var flyoutItem = new MenuFlyoutItem
                         {
-                            Text = cameraList[i].Name,
+                            Text = cameraList[i].DisplayName,
                             Tag = deviceViewModel
                         };
                         flyoutItem.Click += FlyoutItem_Click;
