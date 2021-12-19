@@ -266,26 +266,38 @@ namespace QRCodeScanner
         private bool isCameraOn = false;
         private void CameraButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!isCameraOn)
+            try
             {
-                m_vCapture = new OpenCvSharp.VideoCapture(0);
-
-                if (!m_vCapture.IsOpened())
+                if (!isCameraOn)
                 {
-                    System.Diagnostics.Debug.WriteLine("Camera failed.");
-                    return;
-                }
+                    m_vCapture = new OpenCvSharp.VideoCapture(0);
 
-                isCameraOn = true;
-                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
-                //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
-                CameraPreviewViewbox.Visibility = Visibility.Visible;
-                frameTimer.Start();
-            }
-            else
+                    if (!m_vCapture.IsOpened())
+                    {
+                        DisplayError("Camera failed.");
+                        System.Diagnostics.Debug.WriteLine("Camera failed.");
+                        return;
+                    }
+                    else
+                    {
+                        isCameraOn = true;
+                        //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameWidth, 100);//宽度
+                        //m_vCapture.Set(OpenCvSharp.VideoCaptureProperties.FrameHeight, 100);//高度
+                        CameraPreviewViewbox.Visibility = Visibility.Visible;
+                        ContentTextBox.Visibility = Visibility.Collapsed;
+                        frameTimer.Start();
+                    }
+                }
+                else
+                {
+                    StopCamera();
+                }
+            }catch (Exception ex)
             {
+                DisplayError("Camera failed.");
                 StopCamera();
             }
+
         }
 
 
@@ -302,6 +314,7 @@ namespace QRCodeScanner
             isCameraOn = false;
             currentInterval = 0;
             CameraPreviewViewbox.Visibility = Visibility.Collapsed;
+            ContentTextBox.Visibility = Visibility.Visible;
         }
 
         int scanInterval = 10;
