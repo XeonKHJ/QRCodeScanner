@@ -57,10 +57,13 @@ namespace QRCodeScanner
 
             m_window.Title = windowTitle;
 
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(m_window);
+
+            App.SetWindowSize(hwnd, 350, 400);
+
             m_window.Activate();
 
-            var hwnd = PInvoke.User32.GetActiveWindow();
-            App.SetWindowSize(hwnd, 350, 400);
+
         }
 
         private Window m_window;
