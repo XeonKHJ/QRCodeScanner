@@ -42,6 +42,10 @@ namespace QRCodeScanner.UWP
             var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
             _decoder = new WechatQRCode.Decoder();
             _decoder.PrepareModel(installedLocation + "\\MLModels");
+
+            _qRCodeWindow = new QRCodeDialog();
+            _aboutWindow = new AboutDialog();
+            _errorDialog = new ErrorDialog();
         }
 
         private WechatQRCode.Decoder _decoder;
@@ -49,25 +53,12 @@ namespace QRCodeScanner.UWP
         private AboutDialog _aboutWindow;
         private ErrorDialog _errorDialog;
 
-        public async void DisplayBitmap(Bitmap bitmap)
+        public async void DisplayBitmap(BitmapImage bitmapImage)
         {
-            using (var stream = new Windows.Storage.Streams.InMemoryRandomAccessStream())
+            if (bitmapImage != null)
             {
-                var systemStream = stream.AsStreamForWrite();
-                BitmapImage bitmapImage = new BitmapImage();
-                await Task.Run(() =>
-                {
-                    bitmap.Save(systemStream, ImageFormat.Bmp);
-                    stream.Seek(0);
-
-                }).ConfigureAwait(true);
-                await bitmapImage.SetSourceAsync(stream);
-                if (bitmapImage != null)
-                {
-                    _qRCodeWindow.SetQRCodeSource(bitmapImage);
-                    _qRCodeWindow.XamlRoot = this.Content.XamlRoot;
-                    await _qRCodeWindow.ShowAsync();
-                }
+                _qRCodeWindow.SetQRCodeSource(bitmapImage);
+                await _qRCodeWindow.ShowAsync();
             }
         }
 
@@ -89,7 +80,7 @@ namespace QRCodeScanner.UWP
                     {
                         try
                         {
-                            ScanQRCodeFromStream(imageStream);
+                            await ScanQRCodeFromStream(imageStream);
                         }
                         catch (Exception ex)
                         {
@@ -100,42 +91,34 @@ namespace QRCodeScanner.UWP
             }
         }
 
-        private async void ScanQRCodeFromStream(Stream stream, bool IsErrorShown = true)
+        private async Task ScanQRCodeFromStream(IRandomAccessStream stream, bool IsErrorShown = true)
         {
-            Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(stream);
-            var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            BitmapDecoder dec = await BitmapDecoder.CreateAsync(stream);
+            var data = await dec.GetPixelDataAsync();
+            var bytes = data.DetachPixelData();
 
             int bytePerPixel = 4;
-            switch (bitmap.PixelFormat)
+            switch (dec.BitmapPixelFormat)
             {
-                case PixelFormat.Format8bppIndexed:
+                case BitmapPixelFormat.Gray8:
                     bytePerPixel = 1;
 
                     break;
-                case PixelFormat.Format24bppRgb:
+                case BitmapPixelFormat.Unknown:
                     bytePerPixel = 3;
 
                     break;
-                case PixelFormat.Format32bppArgb:
-                    bytePerPixel = 4;
-
-                    break;
-                case PixelFormat.Format32bppRgb:
-
+                case BitmapPixelFormat.Rgba8:
+                case BitmapPixelFormat.Bgra8:
                     bytePerPixel = 4;
                     break;
                 default:
-                    throw new Exception(String.Format("Image format {0} is not supported.", bitmap.PixelFormat));
+                    throw new Exception(String.Format("Image format {0} is not supported.", dec.BitmapPixelFormat));
             }
 
-            var length = bitmapData.Width * bitmapData.Height * bytePerPixel;
-            byte[] bytes = new byte[length];
 
-            // Copy bitmap to byte[]
-            Marshal.Copy(bitmapData.Scan0, bytes, 0, length);
-            bitmap.UnlockBits(bitmapData);
 
-            var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes, bytePerPixel).ConfigureAwait(true);
+            var result = await _decoder.DetectAndDecodeAsync((int)dec.PixelWidth, (int)dec.PixelHeight, bytes, bytePerPixel).ConfigureAwait(true);
 
             // do something with the result
             if (result != null)
@@ -153,15 +136,25 @@ namespace QRCodeScanner.UWP
 
             }
         }
-        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        private async void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             //PasteButton.Content = "Clicked";
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(ContentTextBox.Text, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            var qrCodeBitmap = qrCode.GetGraphic(20);
+            BitmapByteQRCode qrCodeBmp = new BitmapByteQRCode(qrCodeData);
+            byte[] qrCodeImageBmp = qrCodeBmp.GetGraphic(20, new byte[] { 118, 126, 152 }, new byte[] { 144, 201, 111 });
+            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            {
+                using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
+                {
+                    writer.WriteBytes(qrCodeImageBmp);
+                    await writer.StoreAsync();
+                }
+                var image = new BitmapImage();
+                await image.SetSourceAsync(stream);
 
-            DisplayBitmap(qrCodeBitmap);
+                DisplayBitmap(image);
+            }
         }
 
         private void ContentTextBox_Paste(object sender, TextControlPasteEventArgs e)
@@ -171,8 +164,6 @@ namespace QRCodeScanner.UWP
 
         private async void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-
-            _aboutWindow.XamlRoot = this.Content.XamlRoot;
             await _aboutWindow.ShowAsync();
         }
 
@@ -194,7 +185,7 @@ namespace QRCodeScanner.UWP
                 {
                     try
                     {
-                        ScanQRCodeFromStream(stream.AsStream());
+                        await ScanQRCodeFromStream(stream);
                     }
                     catch (ArgumentException ex)
                     {
@@ -211,7 +202,6 @@ namespace QRCodeScanner.UWP
 
         private async void DisplayError(string error)
         {
-            _errorDialog.XamlRoot = this.Content.XamlRoot;
             _errorDialog.SetErrorMessage(error);
             await _errorDialog.ShowAsync();
         }
@@ -228,7 +218,7 @@ namespace QRCodeScanner.UWP
                     {
                         try
                         {
-                            ScanQRCodeFromStream(stream.AsStream());
+                            await ScanQRCodeFromStream(stream);
                         }
                         catch (ArgumentException ex)
                         {
@@ -424,34 +414,34 @@ namespace QRCodeScanner.UWP
 
         //}
 
-        private async void ScanQRCodeFromStream(IRandomAccessStream stream, bool IsErrorShown = true)
-        {
+        //private async void ScanQRCodeFromStream(IRandomAccessStream stream, bool IsErrorShown = true)
+        //{
 
-            BitmapDecoder dec = await BitmapDecoder.CreateAsync(stream);
-            var data = await dec.GetPixelDataAsync();
-            var bytes = data.DetachPixelData();
-            //var pixel = GetPixel(bytes, 1, 1, dec.PixelWidth, dec.PixelHeight);
+        //    BitmapDecoder dec = await BitmapDecoder.CreateAsync(stream);
+        //    var data = await dec.GetPixelDataAsync();
+        //    var bytes = data.DetachPixelData();
+        //    //var pixel = GetPixel(bytes, 1, 1, dec.PixelWidth, dec.PixelHeight);
 
 
 
-            var result = await _decoder.DetectAndDecodeAsync((int)dec.PixelWidth, (int)dec.PixelHeight, bytes, 4).ConfigureAwait(true);
+        //    var result = await _decoder.DetectAndDecodeAsync((int)dec.PixelWidth, (int)dec.PixelHeight, bytes, 4).ConfigureAwait(true);
 
-            // do something with the result
-            //if (result != null)
-            //{
-            //    StopCamera();
-            //    ContentTextBox.Text = result;
-            //}
-            //else
-            //{
-            //    if (IsErrorShown)
-            //    {
-            //        DisplayError("No text was decoded from the image.");
-            //    }
-            //    System.Diagnostics.Debug.WriteLine("No text.");
+        //    // do something with the result
+        //    //if (result != null)
+        //    //{
+        //    //    StopCamera();
+        //    //    ContentTextBox.Text = result;
+        //    //}
+        //    //else
+        //    //{
+        //    //    if (IsErrorShown)
+        //    //    {
+        //    //        DisplayError("No text was decoded from the image.");
+        //    //    }
+        //    //    System.Diagnostics.Debug.WriteLine("No text.");
 
-            //}
-        }
+        //    //}
+        //}
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
@@ -469,12 +459,9 @@ namespace QRCodeScanner.UWP
                 {
                     try
                     {
-
-
                         //var byteArray = new byte[readStream.Length];
                         //await readStream.ReadAsync(byteArray, 0, byteArray.Length);
-
-                        ScanQRCodeFromStream(stream.AsRandomAccessStream());
+                        await ScanQRCodeFromStream(stream.AsRandomAccessStream());
                     }
                     catch (Exception ex)
                     {

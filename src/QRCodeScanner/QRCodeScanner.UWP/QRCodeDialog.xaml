@@ -13,5 +13,8 @@
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
 
     <Grid>
+        <Viewbox Width="250" Height="250">
+            <Image x:Name="QRCodeImage"></Image>
+        </Viewbox>
     </Grid>
 </ContentDialog>

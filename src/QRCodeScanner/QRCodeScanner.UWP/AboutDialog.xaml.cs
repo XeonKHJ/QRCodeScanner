@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -30,6 +32,30 @@ namespace QRCodeScanner.UWP
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        }
+
+        public bool IsChinese
+        {
+            get
+            {
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (currentCulture.TwoLetterISOLanguageName == "zh")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsEnglish
+        {
+            get
+            {
+                return !IsChinese;
+            }
         }
     }
 }

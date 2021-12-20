@@ -27,7 +27,7 @@ namespace QRCodeScanner.UWP
 
         public void SetQRCodeSource(BitmapImage image)
         {
-
+            QRCodeImage.Source = image;
         }
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
