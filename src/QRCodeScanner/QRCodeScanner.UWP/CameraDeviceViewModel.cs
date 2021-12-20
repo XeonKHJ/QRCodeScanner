@@ -9,6 +9,6 @@ namespace QRCodeScanner.UWP
     internal class CameraDeviceViewModel
     {
         public string Name { set; get; }
-        public int Id { set; get; }
+        public string Id { set; get; }
     }
 }

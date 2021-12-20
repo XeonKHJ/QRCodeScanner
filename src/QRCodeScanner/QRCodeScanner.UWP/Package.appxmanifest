@@ -8,7 +8,7 @@
 
   <Identity
     Name="0690c957-3e21-4b43-b1b3-df02c7300ea6"
-    Publisher="CN=redal"
+    Publisher="CN=6D1D92C0-BE50-4A21-AFF0-97E77C56134C"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="0690c957-3e21-4b43-b1b3-df02c7300ea6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
@@ -45,7 +45,7 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
-    <uap:Capability Name="picturesLibrary"/>
-    <uap:Capability Name="videosLibrary"/>
+    <DeviceCapability Name="webcam"/>
+    <DeviceCapability Name="microphone"/>
   </Capabilities>
 </Package>

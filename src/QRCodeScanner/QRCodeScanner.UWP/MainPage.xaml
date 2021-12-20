@@ -35,9 +35,10 @@
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
-            <Viewbox Grid.Row="1" x:Name="CameraPreviewViewbox"  Stretch="UniformToFill" >
+            <!--<Viewbox Grid.Row="1" x:Name="CameraPreviewViewbox"  Stretch="UniformToFill" >
                 <Image x:Name="CameraPreviewImage"></Image>
-            </Viewbox>
+            </Viewbox>-->
+            <CaptureElement Grid.Row="1" x:Name="CamerePreviewElement" Stretch="UniformToFill"></CaptureElement>
         </Grid>
         <TextBox x:Name="ContentTextBox"  Grid.Row="0" Grid.ColumnSpan="4" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Paste="ContentTextBox_Paste"></TextBox>
         <Button x:Name="GenerateButton" x:Uid="GenerateQRCode" Grid.Row="1" Grid.ColumnSpan="4" Click="GenerateButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
