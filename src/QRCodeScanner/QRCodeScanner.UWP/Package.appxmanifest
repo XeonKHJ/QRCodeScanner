@@ -9,7 +9,7 @@
   <Identity
     Name="49B948DFEE.QR-CodeScanner"
     Publisher="CN=6D1D92C0-BE50-4A21-AFF0-97E77C56134C"
-    Version="1.0.2.0" />
+    Version="1.0.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="a13c7452-91f4-49f6-931f-8b2d062edd4c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
