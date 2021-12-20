@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="AboutWindow.xaml" />
+    <None Remove="AppTitleBar.xaml" />
     <None Remove="ErrorDialog.xaml" />
     <None Remove="MLModels\detect.caffemodel" />
     <None Remove="MLModels\detect.prototxt" />
@@ -88,10 +89,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MLModels\" />
+    <Folder Include="Strings\zh-CN\" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppTitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

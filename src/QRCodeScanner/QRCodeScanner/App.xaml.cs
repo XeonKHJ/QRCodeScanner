@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI;
+using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -17,6 +19,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -51,6 +54,8 @@ namespace QRCodeScanner
 
             m_window = new MainWindow();
 
+
+
             string windowTitle = "QR Code Scanner";
             ResourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
             if (ResourceLoader != null)
@@ -61,6 +66,15 @@ namespace QRCodeScanner
             m_window.Title = windowTitle;
 
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(m_window);
+
+            var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
+
+            AppTitleBar appTitleBar = new AppTitleBar();
+
+            // 获取应用窗口对象
+            var appWindow = AppWindow.GetFromWindowId(windowId);
+            appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            m_window.SetTitleBar(appTitleBar);
 
             App.SetWindowSize(hwnd, 450, 500);
 
