@@ -14,8 +14,10 @@ using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
+using Windows.Media;
 using Windows.Media.Capture;
 using Windows.Media.Capture.Frames;
+using Windows.Media.MediaProperties;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System.Display;
@@ -48,7 +50,12 @@ namespace QRCodeScanner.UWP
             _qRCodeWindow = new QRCodeDialog();
             _aboutWindow = new AboutDialog();
             _errorDialog = new ErrorDialog();
+
+            frameTimer = new DispatcherTimer();
+            frameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000 / 20);
+            frameTimer.Tick += FrameTimer_Tick;
         }
+
 
         private WechatQRCode.Decoder _decoder;
         private QRCodeDialog _qRCodeWindow;
@@ -121,6 +128,28 @@ namespace QRCodeScanner.UWP
 
 
             var result = await _decoder.DetectAndDecodeAsync((int)dec.PixelWidth, (int)dec.PixelHeight, bytes, bytePerPixel).ConfigureAwait(true);
+
+            // do something with the result
+            if (result != null)
+            {
+                await StopCamera();
+                ContentTextBox.Text = result;
+            }
+            else
+            {
+                if (IsErrorShown)
+                {
+                    DisplayError("No text was decoded from the image.");
+                }
+                System.Diagnostics.Debug.WriteLine("No text.");
+
+            }
+        }
+
+        private async Task ScanQRCodeFromStream(byte[] pixelArray, int width, int height, int bytesPerPixel, bool IsErrorShown = true)
+        {
+
+            var result = await _decoder.DetectAndDecodeAsync((int)width, (int)height, pixelArray, bytesPerPixel).ConfigureAwait(true);
 
             // do something with the result
             if (result != null)
@@ -369,11 +398,14 @@ namespace QRCodeScanner.UWP
             {
                 CamerePreviewElement.Source = mediaCapture;
                 await mediaCapture.StartPreviewAsync();
+                previewProperties = mediaCapture.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview) as VideoEncodingProperties;
                 CameraListDropDownButton.Content = viewModel.Name;
                 isCameraOn = true;
+                
                 CameraPreviewGrid.Visibility = Visibility.Visible;
                 ContentTextBox.Visibility = Visibility.Collapsed;
                 DescriptionTextBlock.Visibility = Visibility.Collapsed;
+                frameTimer.Start();
             }
             catch (System.IO.FileLoadException)
             {
@@ -386,6 +418,9 @@ namespace QRCodeScanner.UWP
             if (args.Status == MediaCaptureDeviceExclusiveControlStatus.SharedReadOnlyAvailable)
             {
                 DisplayError("The camera preview can't be displayed because another app has exclusive access");
+                frameTimer.Stop();
+                await StopCamera();
+
             }
             else if (args.Status == MediaCaptureDeviceExclusiveControlStatus.ExclusiveControlAvailable && !isCameraOn)
             {
@@ -434,6 +469,35 @@ namespace QRCodeScanner.UWP
                     ContentTextBox.Visibility = Visibility.Visible;
                     DescriptionTextBlock.Visibility = Visibility.Visible;
                 });
+            }
+        }
+
+        VideoEncodingProperties previewProperties;
+        private async void FrameTimer_Tick(object sender, object e)
+        {
+            try
+            {
+                if (mediaCapture != null)
+                {
+                    if (!_decoder.IsScanning)
+                    {
+                        VideoFrame videoFrame = new VideoFrame(BitmapPixelFormat.Bgra8, (int)previewProperties.Width, (int)previewProperties.Height);
+                        VideoFrame previewFrame = await mediaCapture.GetPreviewFrameAsync(videoFrame);
+
+                        if (previewFrame != null)
+                        {
+                            SoftwareBitmap previewBitmap = previewFrame.SoftwareBitmap;
+                            byte[] data = new byte[(int)previewProperties.Width * (int)previewProperties.Height * 4];
+                            previewBitmap.CopyToBuffer(data.AsBuffer());
+                            await ScanQRCodeFromStream(data, (int)previewProperties.Width, (int)previewProperties.Height, 4, false);
+                        }
+                    }
+
+                }
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 
