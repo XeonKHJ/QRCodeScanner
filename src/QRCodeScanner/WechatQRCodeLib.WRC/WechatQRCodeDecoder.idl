@@ -1,0 +1,11 @@
+namespace WechatQRCodeLib_WRC
+{
+    [default_interface]
+    runtimeclass WechatQRCodeDecoder
+    {
+        WechatQRCodeDecoder();
+        Int32 LoadModel(String basePath);
+        Single GetNumber();
+        String Decode(Int32 width, Int32 height, UInt8[] pixelArray, Int32 channel);
+    }
+}

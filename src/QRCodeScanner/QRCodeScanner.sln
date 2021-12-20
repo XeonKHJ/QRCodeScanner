@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WechatQRCodeLib", "..\Wecha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeScanner.UWP", "QRCodeScanner.UWP\QRCodeScanner.UWP.csproj", "{EF416515-5824-4769-A78E-9ADAAA160119}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WechatQRCodeLib.WRC", "WechatQRCodeLib.WRC\WechatQRCodeLib.WRC.vcxproj", "{F997986C-3E85-4865-B94B-29649F938635}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -85,6 +87,22 @@ Global
 		{EF416515-5824-4769-A78E-9ADAAA160119}.Release|x86.ActiveCfg = Release|x86
 		{EF416515-5824-4769-A78E-9ADAAA160119}.Release|x86.Build.0 = Release|x86
 		{EF416515-5824-4769-A78E-9ADAAA160119}.Release|x86.Deploy.0 = Release|x86
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|ARM.Build.0 = Debug|ARM
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|ARM64.Build.0 = Debug|ARM64
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|x64.ActiveCfg = Debug|x64
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|x64.Build.0 = Debug|x64
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|x86.ActiveCfg = Debug|Win32
+		{F997986C-3E85-4865-B94B-29649F938635}.Debug|x86.Build.0 = Debug|Win32
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|ARM.ActiveCfg = Release|ARM
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|ARM.Build.0 = Release|ARM
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|ARM64.ActiveCfg = Release|ARM64
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|ARM64.Build.0 = Release|ARM64
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|x64.ActiveCfg = Release|x64
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|x64.Build.0 = Release|x64
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|x86.ActiveCfg = Release|Win32
+		{F997986C-3E85-4865-B94B-29649F938635}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

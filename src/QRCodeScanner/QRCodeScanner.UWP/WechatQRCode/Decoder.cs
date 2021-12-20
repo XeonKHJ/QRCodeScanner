@@ -9,24 +9,18 @@ namespace QRCodeScanner.UWP.WechatQRCode
 {
     internal class Decoder
     {
-        [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int DetectQRCodePos(int width, int height, byte[] pixelArray, int channel, ref IntPtr resultPtr);
-
-        [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int LoadModel(string modelPath);
-
-        [DllImport("WechatQRCodeLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void FreeResultString(IntPtr stringptr, int size);
+        private WechatQRCodeLib_WRC.WechatQRCodeDecoder decoder;
+        public Decoder()
+        {
+            decoder = new WechatQRCodeLib_WRC.WechatQRCodeDecoder();
+        }
         public async void PrepareModel(string basePath)
         {
             await Task.Run(() =>
             {
-                var result = Decoder.LoadModel(basePath);
-                if (result == 0)
-                {
-                    IsDecoderLoaded = true;
-                }
+                decoder.LoadModel(basePath);
             });
+            IsDecoderLoaded = true; 
 
         }
 
@@ -42,9 +36,7 @@ namespace QRCodeScanner.UWP.WechatQRCode
             {
                 await Task.Run(() =>
                 {
-                    length = DetectQRCodePos(width, height, pixelArray, channel, ref resultPtr);
-                    strRet = Marshal.PtrToStringUTF8(resultPtr);
-                    FreeResultString(resultPtr, length);
+                    strRet = decoder.Decode(width, height, pixelArray, channel);
                 });
             }
             else
