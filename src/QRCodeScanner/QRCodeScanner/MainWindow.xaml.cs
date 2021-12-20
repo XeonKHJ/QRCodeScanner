@@ -102,7 +102,7 @@ namespace QRCodeScanner
                     {
                         try
                         {
-                            ScanQRCodeFromStream(imageStream.AsStream());
+                            await ScanQRCodeFromStream(imageStream.AsStream());
                         }
                         catch (Exception ex)
                         {
@@ -113,7 +113,7 @@ namespace QRCodeScanner
             }
         }
 
-        private async void ScanQRCodeFromStream(Stream stream, bool IsErrorShown = true)
+        private async Task ScanQRCodeFromStream(Stream stream, bool IsErrorShown = true)
         {
             Bitmap bitmap = (Bitmap)System.Drawing.Image.FromStream(stream);
             var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -209,7 +209,7 @@ namespace QRCodeScanner
                 {
                     try
                     {
-                        ScanQRCodeFromStream(stream.AsStream());
+                        await ScanQRCodeFromStream(stream.AsStream());
                     }
                     catch (ArgumentException ex)
                     {
@@ -243,7 +243,7 @@ namespace QRCodeScanner
                     {
                         try
                         {
-                            ScanQRCodeFromStream(stream.AsStream());
+                            await ScanQRCodeFromStream(stream.AsStream());
                         }
                         catch (ArgumentException ex)
                         {
@@ -410,7 +410,7 @@ namespace QRCodeScanner
                         CameraPreviewImage.Source = bitmapImage;
                         if (!_decoder.IsScanning)
                         {
-                            ScanQRCodeFromStream(imageStream, false);
+                            await ScanQRCodeFromStream(imageStream, false);
                         }
                     }
                 }
