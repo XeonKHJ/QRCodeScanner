@@ -112,11 +112,17 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutDialog.CloseButtonText" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>关于</value>
+  </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>二维码扫描</value>
   </data>
@@ -126,8 +132,17 @@
   <data name="CameraPermissionError" xml:space="preserve">
     <value>打开摄像头失败。请在Windows设置中检查该应用的摄像头权限。</value>
   </data>
+  <data name="DataTooLongError" xml:space="preserve">
+    <value>数据太大，请减少输入后重试。</value>
+  </data>
   <data name="Description.Text" xml:space="preserve">
     <value>粘贴或拖拽二维码图片到此扫描</value>
+  </data>
+  <data name="ErrorDialog.CloseButtonText" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="ErrorDialog.Title" xml:space="preserve">
+    <value>错误</value>
   </data>
   <data name="GenerateQRCode.Content" xml:space="preserve">
     <value>生成二维码</value>
@@ -140,6 +155,9 @@
   </data>
   <data name="PasteToScan.Text" xml:space="preserve">
     <value>粘贴以扫描</value>
+  </data>
+  <data name="QRCodeDialog.CloseButtonText" xml:space="preserve">
+    <value>关闭</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>扫描二维码</value>

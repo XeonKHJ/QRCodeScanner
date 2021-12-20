@@ -1,4 +1,5 @@
 ﻿using QRCoder;
+using QRCoder.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -170,22 +171,36 @@ namespace QRCodeScanner.UWP
         private async void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             //PasteButton.Content = "Clicked";
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(ContentTextBox.Text, QRCodeGenerator.ECCLevel.Q);
-            BitmapByteQRCode qrCodeBmp = new BitmapByteQRCode(qrCodeData);
-            byte[] qrCodeImageBmp = qrCodeBmp.GetGraphic(20, new byte[] { 118, 126, 152 }, new byte[] { 144, 201, 111 });
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-            {
-                using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
-                {
-                    writer.WriteBytes(qrCodeImageBmp);
-                    await writer.StoreAsync();
-                }
-                var image = new BitmapImage();
-                await image.SetSourceAsync(stream);
 
-                DisplayBitmap(image);
+            try
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(ContentTextBox.Text, QRCodeGenerator.ECCLevel.Q);
+                BitmapByteQRCode qrCodeBmp = new BitmapByteQRCode(qrCodeData);
+                byte[] qrCodeImageBmp = qrCodeBmp.GetGraphic(20, new byte[] { 0, 0, 0 }, new byte[] { 255, 255, 255 });
+
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+                    using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
+                    {
+                        writer.WriteBytes(qrCodeImageBmp);
+                        await writer.StoreAsync();
+                    }
+                    var image = new BitmapImage();
+                    await image.SetSourceAsync(stream);
+
+                    DisplayBitmap(image);
+                }
             }
+            catch (DataTooLongException ex)
+            {
+                DisplayError(App.ResourceLoader.GetString("DataTooLongError"));
+            }
+            catch(Exception ex)
+            {
+                DisplayError(ex.Message);
+            }
+
         }
 
         private void ContentTextBox_Paste(object sender, TextControlPasteEventArgs e)
@@ -334,7 +349,7 @@ namespace QRCodeScanner.UWP
 
         private async void FlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            if(!isClosing)
+            if (!isClosing)
             {
                 var flyoutItem = (MenuFlyoutItem)sender;
                 var viewModel = flyoutItem.Tag as CameraDeviceViewModel;
@@ -405,7 +420,7 @@ namespace QRCodeScanner.UWP
                 previewProperties = mediaCapture.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview) as VideoEncodingProperties;
                 CameraListDropDownButton.Content = viewModel.Name;
                 isCameraOn = true;
-                
+
                 CameraPreviewGrid.Visibility = Visibility.Visible;
                 ContentTextBox.Visibility = Visibility.Collapsed;
                 DescriptionTextBlock.Visibility = Visibility.Collapsed;
@@ -471,7 +486,7 @@ namespace QRCodeScanner.UWP
                     mediaCapture.Dispose();
                     mediaCapture = null;
 
-                    if(isUIChange)
+                    if (isUIChange)
                     {
                         CameraPreviewGrid.Visibility = Visibility.Collapsed;
                         ContentTextBox.Visibility = Visibility.Visible;
@@ -505,7 +520,7 @@ namespace QRCodeScanner.UWP
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
