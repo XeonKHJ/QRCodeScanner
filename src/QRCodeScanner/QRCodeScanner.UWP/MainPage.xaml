@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 
-    <Grid AllowDrop="True" CanDrag="True" Drop="ContentTextBox_Drop" DragOver="Grid_DragOver" Margin="0, 32, 0, 0">
+    <Grid AllowDrop="True" CanDrag="True" Drop="ContentTextBox_Drop" DragOver="Grid_DragOver">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
