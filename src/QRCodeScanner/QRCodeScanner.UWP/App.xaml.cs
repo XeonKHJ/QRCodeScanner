@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -30,9 +31,17 @@ namespace QRCodeScanner.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            abc = Windows.ApplicationModel.Package.Current.InstalledLocation.Path + "\\WechatDllLib\\";
         }
-        public static string abc =Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
+
+
+        public static ResourceLoader ResourceLoader
+        {
+            get
+            {
+                return Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
+            }
+        }
+
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
         /// 将在启动应用程序以打开特定文件等情况下使用。

@@ -89,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MLModels\" />
-    <Folder Include="Strings\zh-CN\" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Logo.ico">
