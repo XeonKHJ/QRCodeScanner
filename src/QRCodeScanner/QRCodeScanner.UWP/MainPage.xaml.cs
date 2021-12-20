@@ -152,7 +152,7 @@ namespace QRCodeScanner.UWP
             var result = await _decoder.DetectAndDecodeAsync((int)width, (int)height, pixelArray, bytesPerPixel).ConfigureAwait(true);
 
             // do something with the result
-            if (result != null)
+            if (result != String.Empty)
             {
                 await StopCamera();
                 ContentTextBox.Text = result;
@@ -334,13 +334,17 @@ namespace QRCodeScanner.UWP
 
         private async void FlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            var flyoutItem = (MenuFlyoutItem)sender;
-            var viewModel = flyoutItem.Tag as CameraDeviceViewModel;
-            if (viewModel != null)
+            if(!isClosing)
             {
-                await StopCamera();
-                StartCamera(viewModel);
+                var flyoutItem = (MenuFlyoutItem)sender;
+                var viewModel = flyoutItem.Tag as CameraDeviceViewModel;
+                if (viewModel != null)
+                {
+                    await StopCamera(false);
+                    StartCamera(viewModel);
+                }
             }
+
         }
 
         private MediaCapture mediaCapture;
@@ -431,8 +435,10 @@ namespace QRCodeScanner.UWP
             }
         }
 
-        async Task StopCamera()
+        bool isClosing = false;
+        async Task StopCamera(bool isUIChange = true)
         {
+            isClosing = true;
             //isCameraOn = false;
             //frameTimer.Stop();
 
@@ -465,11 +471,15 @@ namespace QRCodeScanner.UWP
                     mediaCapture.Dispose();
                     mediaCapture = null;
 
-                    CameraPreviewGrid.Visibility = Visibility.Collapsed;
-                    ContentTextBox.Visibility = Visibility.Visible;
-                    DescriptionTextBlock.Visibility = Visibility.Visible;
+                    if(isUIChange)
+                    {
+                        CameraPreviewGrid.Visibility = Visibility.Collapsed;
+                        ContentTextBox.Visibility = Visibility.Visible;
+                        DescriptionTextBlock.Visibility = Visibility.Visible;
+                    }
                 });
             }
+            isClosing = false;
         }
 
         VideoEncodingProperties previewProperties;
