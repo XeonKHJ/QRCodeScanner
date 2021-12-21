@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
@@ -20,6 +20,8 @@
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <Configurations>Debug;Release;WinUI3-Debug</Configurations>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="AboutWindow.xaml" />
@@ -70,9 +72,6 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WechatQRCodeLib\WechatQRCodeLib\WechatQRCodeLib.vcxproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="ErrorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MLModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WechatQRCodeLib.WRC\WechatQRCodeLib.WRC.vcxproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Logo.ico">

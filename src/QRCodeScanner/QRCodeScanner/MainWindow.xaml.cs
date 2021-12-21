@@ -151,7 +151,7 @@ namespace QRCodeScanner
             var result = await _decoder.DetectAndDecodeAsync(bitmapData.Width, bitmapData.Height, bytes, bytePerPixel).ConfigureAwait(true);
 
             // do something with the result
-            if (result != null)
+            if (result != String.Empty)
             {
                 StopCamera();
                 ContentTextBox.Text = result;
