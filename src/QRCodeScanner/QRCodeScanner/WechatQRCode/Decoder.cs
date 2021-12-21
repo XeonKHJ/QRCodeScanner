@@ -9,10 +9,10 @@ namespace QRCodeScanner.WechatQRCode
 {
     internal class Decoder
     {
-        private WechatQRCodeLib_WRC.WechatQRCodeDecoder decoder;
+        private OpenCVWechatCode.WechatCoder decoder;
         public Decoder()
         {
-            decoder = new WechatQRCodeLib_WRC.WechatQRCodeDecoder();
+            decoder = new OpenCVWechatCode.WechatCoder();
         }
         public async void PrepareModel(string basePath)
         {

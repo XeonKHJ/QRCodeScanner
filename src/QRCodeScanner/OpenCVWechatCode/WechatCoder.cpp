@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "WechatQRCodeDecoder.h"
-#include "WechatQRCodeDecoder.g.cpp"
+#include "WechatCoder.h"
+#include "WechatCoder.g.cpp"
 
 #include <opencv2/core.hpp>
 
@@ -10,27 +10,21 @@
 #include <string>
 using std::string;
 
-
-namespace winrt::WechatQRCodeLib_WRC::implementation
+namespace winrt::OpenCVWechatCode::implementation
 {
-	WechatQRCodeDecoder::WechatQRCodeDecoder()
+	int32_t WechatCoder::LoadModel(hstring const& basePath)
 	{
-		int i = 0;
-		string a = "sdfjsld";
-	}
-    int32_t WechatQRCodeDecoder::LoadModel(hstring const& basePath)
-    {
 		string basePathSlash = winrt::to_string(basePath) + "\\";
 
 		detector = cv::wechat_qrcode::WeChatQRCode(basePathSlash + "detect.prototxt", basePathSlash + "detect.caffemodel", basePathSlash + "sr.prototxt", basePathSlash + "sr.caffemodel");
 		return 0;
-    }
-    float WechatQRCodeDecoder::GetNumber()
-    {
-        throw hresult_not_implemented();
-    }
-    hstring WechatQRCodeDecoder::Decode(int32_t width, int32_t height, array_view<uint8_t const> pixelArray, int32_t channel)
-    {
+	}
+	float WechatCoder::GetNumber()
+	{
+		throw hresult_not_implemented();
+	}
+	hstring WechatCoder::Decode(int32_t width, int32_t height, array_view<uint8_t const> pixelArray, int32_t channel)
+	{
 		int type = CV_8UC4;
 		switch (channel)
 		{
@@ -68,5 +62,5 @@ namespace winrt::WechatQRCodeLib_WRC::implementation
 		img.release();
 
 		return result;
-    }
+	}
 }

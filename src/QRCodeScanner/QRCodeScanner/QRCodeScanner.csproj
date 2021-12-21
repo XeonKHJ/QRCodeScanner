@@ -20,7 +20,7 @@
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <Configurations>Debug;Release;WinUI3-Debug</Configurations>
+    <Configurations>Debug;Release;WinUI3-Debug;Nuget-Release</Configurations>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -62,6 +62,7 @@
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.5.3.20211207" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="WechatQRCodeLib.WRC" Version="0.1.4-prerelease" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -88,9 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MLModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WechatQRCodeLib.WRC\WechatQRCodeLib.WRC.vcxproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Logo.ico">

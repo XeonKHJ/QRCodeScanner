@@ -1,0 +1,11 @@
+namespace OpenCVWechatCode
+{
+	[default_interface]
+	runtimeclass WechatCoder
+	{
+		WechatCoder();
+	Int32 LoadModel(String basePath);
+	Single GetNumber();
+	String Decode(Int32 width, Int32 height, UInt8[] pixelArray, Int32 channel);
+	}
+}

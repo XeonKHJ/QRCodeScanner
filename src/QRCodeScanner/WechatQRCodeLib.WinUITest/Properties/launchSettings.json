@@ -1,7 +1,8 @@
 {
   "profiles": {
     "WechatQRCodeLib.WinUITest (Package)": {
-      "commandName": "MsixPackage"
+      "commandName": "MsixPackage",
+      "nativeDebugging": true
     },
     "WechatQRCodeLib.WinUITest (Unpackaged)": {
       "commandName": "Project"

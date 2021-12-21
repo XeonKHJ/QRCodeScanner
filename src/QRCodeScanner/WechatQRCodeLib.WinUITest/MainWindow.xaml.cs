@@ -26,7 +26,9 @@ namespace WechatQRCodeLib.WinUITest
         public MainWindow()
         {
             this.InitializeComponent();
-            WechatQRCodeLib_WRC.WechatQRCodeDecoder wechatQRCodeDecoder = new WechatQRCodeLib_WRC.WechatQRCodeDecoder();
+            var x = new SimpleMathComponent.SimpleMath();
+            OpenCVWechatCode.WechatCoder sdf = new OpenCVWechatCode.WechatCoder();
+            var ii  = sdf.GetNumber();
         }
 
         private void myButton_Click(object sender, RoutedEventArgs e)

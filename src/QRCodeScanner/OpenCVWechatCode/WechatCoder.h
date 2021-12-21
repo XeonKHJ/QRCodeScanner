@@ -1,12 +1,13 @@
 #pragma once
-#include "WechatQRCodeDecoder.g.h"
+#include "WechatCoder.g.h"
+
 #include "../../WechatQRCodeLib/WechatQRCodeLib/wechat_qrcode/wechat_qrcode.hpp"
 
-namespace winrt::WechatQRCodeLib_WRC::implementation
+namespace winrt::OpenCVWechatCode::implementation
 {
-    struct WechatQRCodeDecoder : WechatQRCodeDecoderT<WechatQRCodeDecoder>
+    struct WechatCoder : WechatCoderT<WechatCoder>
     {
-        WechatQRCodeDecoder();
+        WechatCoder() = default;
 
         int32_t LoadModel(hstring const& basePath);
         float GetNumber();
@@ -16,9 +17,9 @@ namespace winrt::WechatQRCodeLib_WRC::implementation
         cv::wechat_qrcode::WeChatQRCode detector;
     };
 }
-namespace winrt::WechatQRCodeLib_WRC::factory_implementation
+namespace winrt::OpenCVWechatCode::factory_implementation
 {
-    struct WechatQRCodeDecoder : WechatQRCodeDecoderT<WechatQRCodeDecoder, implementation::WechatQRCodeDecoder>
+    struct WechatCoder : WechatCoderT<WechatCoder, implementation::WechatCoder>
     {
     };
 }
