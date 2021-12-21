@@ -23,7 +23,6 @@
 
 		<!--Architecture-specific implementation DLLs should be copied into RID-relative folders-->
 		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\WechatQRCodeWRC.dll" target="runtimes\win10-x64\native\WechatQRCodeWRC.dll" />
-		
 		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\libprotobuf.dll" target="runtimes\win10-x64\native\libprotobuf.dll" />
 		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_core.dll" target="runtimes\win10-x64\native\opencv_core.dll" />
 		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_dnn.dll" target="runtimes\win10-x64\native\opencv_dnn.dll" />
@@ -32,5 +31,12 @@
 		<!--<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\WechatQRCodeLib_WRC.pri" target="runtimes\win10-x64\native\WechatQRCodeLib_WRC.pri" />
 		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\WechatQRCodeLib.WRC.pdb" target="runtimes\win10-x64\native\WechatQRCodeLib.WRC.pdb" />
 		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\WechatQRCodeLib.WRC.lib" target="runtimes\win10-x64\native\WechatQRCodeLib.WRC.lib" />-->
+
+		<file src="..\..\_build\arm64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\WechatQRCodeWRC.dll" target="runtimes\win10-x64\native\WechatQRCodeWRC.dll" />
+		<file src="..\..\_build\arm64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\libprotobuf.dll" target="runtimes\win10-x64\native\libprotobuf.dll" />
+		<file src="..\..\_build\arm64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_core.dll" target="runtimes\win10-x64\native\opencv_core.dll" />
+		<file src="..\..\_build\arm64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_dnn.dll" target="runtimes\win10-x64\native\opencv_dnn.dll" />
+		<file src="..\..\_build\arm64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_imgproc.dll" target="runtimes\win10-x64\native\opencv_imgproc.dll" />
+		<file src="..\..\_build\arm64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\zlib1.dll" target="runtimes\win10-x64\native\zlib1.dll" />
 	</files>
 </package>
