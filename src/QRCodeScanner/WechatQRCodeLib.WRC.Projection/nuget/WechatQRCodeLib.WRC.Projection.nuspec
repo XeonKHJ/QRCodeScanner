@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+	<metadata>
+		<id>SimpleMathComponent</id>
+		<version>0.1.0-prerelease</version>
+		<authors>Contoso Math Inc.</authors>
+		<description>A simple component with basic math operations</description>
+		<dependencies>
+			<group targetFramework="net6.0-windows10.0.19041.0" />
+			<group targetFramework=".NETCoreApp3.0" />
+			<group targetFramework="uap10.0" />
+			<group targetFramework=".NETFramework4.6" />
+		</dependencies>
+	</metadata>
+	<files>
+		<!--Support .NET Core 3, UAP, .NET Framework 4.6, .NET 6, C++ -->
+		<!--Architecture-netural assemblies-->
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\WechatQRCodeLib_WRC.winmd" target="lib\netcoreapp3.0\WechatQRCodeLib_WRC.winmd" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\WechatQRCodeLib_WRC.winmd" target="lib\net46\WechatQRCodeLib_WRC.winmd" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\WechatQRCodeLib_WRC.winmd" target="lib\uap10.0\WechatQRCodeLib_WRC.winmd" />
+		<file src="..\..\_build\AnyCPU\Debug\WechatQRCodeLib.WRC.Projection\bin\WechatQRCodeLib.WRC.Projection.dll" target="lib\net6.0-windows10.0.19041.0\WechatQRCodeLib.WRC.Projection.dll" />
+		<!--<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\libprotobufd.dll" target="lib\net6.0-windows10.0.19041.0\libprotobufd.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\opencv_cored.dll" target="lib\net6.0-windows10.0.19041.0\opencv_cored.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\opencv_dnnd.dll" target="lib\net6.0-windows10.0.19041.0\opencv_dnnd.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\opencv_imgprocd.dll" target="lib\net6.0-windows10.0.19041.0\opencv_imgprocd.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\zlibd1.dll" target="lib\net6.0-windows10.0.19041.0\zlibd1.dll" />-->
+
+		<!--Architecture-specific implementation DLLs should be copied into RID-relative folders-->
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\WechatQRCodeLib.WRC.dll" target="runtimes\win10-x64\native\WechatQRCodeLib.WRC.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\libprotobufd.dll" target="runtimes\win10-x64\native\libprotobufd.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\opencv_cored.dll" target="runtimes\win10-x64\native\opencv_cored.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\opencv_dnnd.dll" target="runtimes\win10-x64\native\opencv_dnnd.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\opencv_imgprocd.dll" target="runtimes\win10-x64\native\opencv_imgprocd.dll" />
+		<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\zlibd1.dll" target="runtimes\win10-x64\native\zlibd1.dll" />
+	</files>
+</package>
