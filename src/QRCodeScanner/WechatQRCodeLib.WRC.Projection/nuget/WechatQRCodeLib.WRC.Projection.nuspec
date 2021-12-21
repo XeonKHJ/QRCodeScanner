@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
 	<metadata>
-		<id>WechatQRCodeLib.WRC</id>
-		<version>0.1.4-prerelease</version>
-		<authors>Contoso Math Inc.</authors>
-		<description>A simple component with basic math operations</description>
+		<id>WechatQRCodeWRC</id>
+		<version>0.1.5-prerelease</version>
+		<authors>Kang Hongjia</authors>
+		<description>A simple component that ports OpenCV's wechat_qrcode module developed by Wechat developers.</description>
 		<dependencies>
 			<group targetFramework="net6.0-windows10.0.19041.0" />
 			<group targetFramework=".NETCoreApp3.0" />
@@ -15,20 +15,20 @@
 	<files>
 		<!--Support .NET Core 3, UAP, .NET Framework 4.6, .NET 6, C++ -->
 		<!--Architecture-netural assemblies-->
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\OpenCVWechatCode.winmd" target="lib\netcoreapp3.0\OpenCVWechatCode.winmd" />
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\OpenCVWechatCode.winmd" target="lib\net46\OpenCVWechatCode.winmd" />
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\OpenCVWechatCode.winmd" target="lib\uap10.0\OpenCVWechatCode.winmd" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\WechatQRCodeWRC.winmd" target="lib\netcoreapp3.0\WechatQRCodeWRC.winmd" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\WechatQRCodeWRC.winmd" target="lib\net46\WechatQRCodeWRC.winmd" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\WechatQRCodeWRC.winmd" target="lib\uap10.0\WechatQRCodeWRC.winmd" />
 		<file src="..\..\_build\AnyCPU\Release\WechatQRCodeLib.WRC.Projection\bin\WechatQRCodeLib.WRC.Projection.dll" target="lib\net6.0-windows10.0.19041.0\WechatQRCodeLib.WRC.Projection.dll" />
 		<!--<file src="..\..\_build\x64\WinUI3-Debug\WechatQRCodeLib.WRC\bin\WechatQRCodeLib.WRC\libprotobufd.dll" target="lib\net6.0-windows10.0.19041.0\libprotobufd.dll" />-->
 
 		<!--Architecture-specific implementation DLLs should be copied into RID-relative folders-->
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\OpenCVWechatCode.dll" target="runtimes\win10-x64\native\OpenCVWechatCode.dll" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\WechatQRCodeWRC.dll" target="runtimes\win10-x64\native\WechatQRCodeWRC.dll" />
 		
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\libprotobuf.dll" target="runtimes\win10-x64\native\libprotobuf.dll" />
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\opencv_core.dll" target="runtimes\win10-x64\native\opencv_core.dll" />
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\opencv_dnn.dll" target="runtimes\win10-x64\native\opencv_dnn.dll" />
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\opencv_imgproc.dll" target="runtimes\win10-x64\native\opencv_imgproc.dll" />
-		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\zlib1.dll" target="runtimes\win10-x64\native\zlib1.dll" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\libprotobuf.dll" target="runtimes\win10-x64\native\libprotobuf.dll" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_core.dll" target="runtimes\win10-x64\native\opencv_core.dll" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_dnn.dll" target="runtimes\win10-x64\native\opencv_dnn.dll" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\opencv_imgproc.dll" target="runtimes\win10-x64\native\opencv_imgproc.dll" />
+		<file src="..\..\_build\x64\Release\WechatQRCodeWRC\bin\WechatQRCodeWRC\zlib1.dll" target="runtimes\win10-x64\native\zlib1.dll" />
 		<!--<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\WechatQRCodeLib_WRC.pri" target="runtimes\win10-x64\native\WechatQRCodeLib_WRC.pri" />
 		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\WechatQRCodeLib.WRC.pdb" target="runtimes\win10-x64\native\WechatQRCodeLib.WRC.pdb" />
 		<file src="..\..\_build\x64\Release\OpenCVWechatCode\bin\OpenCVWechatCode\WechatQRCodeLib.WRC.lib" target="runtimes\win10-x64\native\WechatQRCodeLib.WRC.lib" />-->

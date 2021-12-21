@@ -4,15 +4,16 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using WechatQRCodeWRC;
 
 namespace QRCodeScanner.WechatQRCode
 {
     internal class Decoder
     {
-        private OpenCVWechatCode.WechatCoder decoder;
+        private WechatQRDecoder decoder;
         public Decoder()
         {
-            decoder = new OpenCVWechatCode.WechatCoder();
+            decoder = new WechatQRDecoder();
         }
         public async void PrepareModel(string basePath)
         {
