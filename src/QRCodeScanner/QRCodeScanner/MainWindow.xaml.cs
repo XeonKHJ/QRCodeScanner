@@ -46,6 +46,11 @@ namespace QRCodeScanner
 
             var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
 
+            if(IsWin11)
+            {
+                MainContentGrid.Margin = new Thickness(0, 32, 0, 0);
+            }
+
             _qRCodeWindow = new QRCodeWindow();
             _aboutWindow = new AboutWindow();
             _errorDialog = new ErrorDialog();
@@ -57,7 +62,15 @@ namespace QRCodeScanner
             frameTimer.Tick += FrameTimer_Tick;
         }
 
-
+        public bool IsWin11 {
+            get
+            {
+                string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+                ulong version = ulong.Parse(deviceFamilyVersion);
+                ulong build = (version & 0x00000000FFFF0000L) >> 16;
+                return (build >= 22000);
+            }
+        }
         private WechatQRCode.Decoder _decoder;
         private QRCodeWindow _qRCodeWindow;
         private AboutWindow _aboutWindow;

@@ -54,8 +54,6 @@ namespace QRCodeScanner
 
             m_window = new MainWindow();
 
-
-
             string windowTitle = "QR Code Scanner";
             ResourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForViewIndependentUse();
             if (ResourceLoader != null)
@@ -71,10 +69,18 @@ namespace QRCodeScanner
 
             AppTitleBar appTitleBar = new AppTitleBar();
 
-            // 获取应用窗口对象
-            var appWindow = AppWindow.GetFromWindowId(windowId);
-            appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-            m_window.SetTitleBar(appTitleBar);
+            string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+            ulong version = ulong.Parse(deviceFamilyVersion);
+            ulong build = (version & 0x00000000FFFF0000L) >> 16;
+
+            // if app runs on Win11.
+            if(build >= 22000)
+            {
+                // 获取应用窗口对象
+                var appWindow = AppWindow.GetFromWindowId(windowId);
+                appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+                m_window.SetTitleBar(appTitleBar);
+            }
 
             App.SetWindowSize(hwnd, 450, 500);
 
