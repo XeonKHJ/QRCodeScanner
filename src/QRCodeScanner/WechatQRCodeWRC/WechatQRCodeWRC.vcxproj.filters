@@ -11,6 +11,9 @@
     <Filter Include="WechatQRCodeSrc">
       <UniqueIdentifier>{93ee378f-b8eb-4938-8931-ecc361a6618c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="opencvdnn">
+      <UniqueIdentifier>{d4191785-5c04-4723-b657-f237c8ef6e5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

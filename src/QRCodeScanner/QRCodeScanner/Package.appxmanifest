@@ -10,7 +10,7 @@
   <Identity
     Name="49B948DFEE.QR-CodeScanner"
     Publisher="CN=6D1D92C0-BE50-4A21-AFF0-97E77C56134C"
-    Version="1.0.4.0" />
+    Version="1.0.8.0" />
 
   <Properties>
     <DisplayName>QR-Code Scanner</DisplayName>
